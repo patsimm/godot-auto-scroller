@@ -4,7 +4,7 @@ using System;
 public partial class Main : Node2D
 {
 
-	private PackedScene _gameScene = GD.Load<PackedScene>("res://game.tscn");
+	private PackedScene _gameScene = GD.Load<PackedScene>("res://scenes/game.tscn");
 
 	public required Gui Gui;
 
