@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bmalvvpwditnc"]
+[gd_scene load_steps=2 format=3 uid="uid://bmalvvpwditnc"]
 
 [ext_resource type="PackedScene" uid="uid://bcvgrm1j7cljg" path="res://scenes/Block.tscn" id="1_cmy44"]
-[ext_resource type="Script" path="res://src/World.cs" id="1_mg60r"]
 
 [node name="World" type="Node"]
-script = ExtResource("1_mg60r")
 
 [node name="Blocks" type="Node2D" parent="."]
 
@@ -57,7 +55,7 @@ collision_mask = 0
 sync_to_physics = true
 
 [node name="Block9" parent="Blocks" groups=["world_object"] instance=ExtResource("1_cmy44")]
-position = Vector2(256, -1536)
+position = Vector2(256, -1408)
 scale = Vector2(4, 1)
 collision_mask = 0
 sync_to_physics = true

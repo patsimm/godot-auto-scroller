@@ -12,19 +12,15 @@ public partial class Game : Node2D
 		EmitSignal(SignalName.GameOver);
 	}
 
-	public override void _Ready()
-	{
-		NewGame();
-	}
-
 	public void NewGame()
 	{
-		GetNode<World>("World").Start();
+		var scroller = GetNode<Scroller>("Scroller");
+		scroller.StartScrolling();
 	}
 
 	public void StopGame()
 	{
-		GetNode<World>("World").Stop();
+		GetNode<Scroller>("Scroller").StopScrolling();
 	}
 
 }

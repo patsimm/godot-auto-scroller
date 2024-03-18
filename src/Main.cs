@@ -14,15 +14,16 @@ public partial class Main : Node2D
 	{
 		Gui = GetNode<Gui>("GUI");
 		Gui.PlayAgainButtonPressed += Restart;
-		Gui.Hide();
 		StartGame();
 	}
 
 	public void StartGame()
 	{
+		Gui.Hide();
 		_game = (Game)_gameScene.Instantiate();
 		_game.GameOver += OnGameOver;
 		AddChild(_game);
+		_game.NewGame();
 	}
 
 	public void Restart()
@@ -38,8 +39,8 @@ public partial class Main : Node2D
 	public void OnGameOver()
 	{
 		GD.Print("Game Over");
-		_game.StopGame();
 		Gui.Show();
+		_game.StopGame();
 	}
 
 }
