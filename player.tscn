@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://k3tdpfdtkk1d"]
+
+[ext_resource type="Script" path="res://Player.cs" id="1_mdlgb"]
+[ext_resource type="Script" path="res://MassComponent.cs" id="2_abojg"]
+[ext_resource type="Script" path="res://VelocityComponent.cs" id="3_k3xfh"]
+[ext_resource type="Script" path="res://MovementComponent.cs" id="4_aur1r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k5okc"]
+size = Vector2(40, 40)
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(0, 9.56772e+10)
+collision_layer = 3
+collision_mask = 3
+velocity = Vector2(0, 900)
+script = ExtResource("1_mdlgb")
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k5okc")
+
+[node name="JumpDurationTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="MassComponent" type="Node2D" parent="." node_paths=PackedStringArray("VelocityComponent")]
+script = ExtResource("2_abojg")
+VelocityComponent = NodePath("../VelocityComponent")
+_mass = 4.0
+
+[node name="VelocityComponent" type="Node2D" parent="."]
+script = ExtResource("3_k3xfh")
+
+[node name="MovementComponent" type="Node2D" parent="." node_paths=PackedStringArray("VelocityComponent")]
+script = ExtResource("4_aur1r")
+VelocityComponent = NodePath("../VelocityComponent")
+_movementMaxSpeed = 600.0
+_movementAcceleration = 12.0
+_jumpAcceleration = 2500.0
+_jumpDuration = 0.5
+_wallJumpCoolDown = 2.08165e-12
