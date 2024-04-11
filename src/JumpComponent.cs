@@ -1,17 +1,16 @@
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 [Tool]
 [GlobalClass]
-public partial class JumpComponent : Node2D
+public partial class JumpComponent : Component<CharacterBody2D>
 {
     [Export]
     public required VelocityComponent VelocityComponent;
 
     [Export]
     public required MovementComponent MovementComponent;
-
-    public required CharacterBody2D CharacterBody;
 
     [Export]
     private float _jumpAcceleration = 4000;
@@ -30,7 +29,8 @@ public partial class JumpComponent : Node2D
 
     public override void _Ready()
     {
-        CharacterBody = GetParent<CharacterBody2D>();
+        base._Ready();
+
         _jumpDurationTimer.WaitTime = _jumpDuration;
         _jumpDurationTimer.OneShot = true;
         AddChild(_jumpDurationTimer);
@@ -42,7 +42,7 @@ public partial class JumpComponent : Node2D
 
     public override string[] _GetConfigurationWarnings()
     {
-        var errors = new List<string> { };
+        var errors = base._GetConfigurationWarnings().ToList();
 
         if (VelocityComponent is null)
             errors.Add("JumpComponent needs a linked VelocityComponent");
@@ -50,27 +50,24 @@ public partial class JumpComponent : Node2D
         if (MovementComponent is null)
             errors.Add("JumpComponent needs a linked MovementComponent");
 
-        if (GetParent() is not CharacterBody2D)
-            errors.Add("JumpComponent must be child of CharacterBody2D");
-
         return errors.ToArray();
     }
 
     public void JumpStart()
     {
-        if (CharacterBody.IsOnFloor())
+        if (Parent.IsOnFloor())
         {
             _jumpDurationTimer.Start();
             _wallJumpCoolDownDurationTimer.Stop();
             VelocityComponent.AddVelocity(Vector2.Up * _jumpAcceleration * 0.33f);
         }
 
-        if (CharacterBody.IsOnWallOnly() && _wallJumpCoolDownDurationTimer.TimeLeft <= 0)
+        if (Parent.IsOnWallOnly() && _wallJumpCoolDownDurationTimer.TimeLeft <= 0)
         {
             _jumpDurationTimer.Start();
             _wallJumpCoolDownDurationTimer.Start();
             MovementComponent.ReduceMovementSpeed(.2);
-            var jumpDirection = (Vector2.Up + CharacterBody.GetWallNormal()).Normalized();
+            var jumpDirection = (Vector2.Up + Parent.GetWallNormal()).Normalized();
             VelocityComponent.AddVelocity(jumpDirection * _jumpAcceleration * 0.4f);
         }
     }
@@ -85,7 +82,7 @@ public partial class JumpComponent : Node2D
     {
         if (Engine.IsEditorHint()) return;
 
-        if (CharacterBody.IsOnCeiling())
+        if (Parent.IsOnCeiling())
         {
             _jumpDurationTimer.Stop();
         }
