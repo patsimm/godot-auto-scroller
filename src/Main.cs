@@ -40,7 +40,7 @@ public partial class Main : Node2D
 	{
 		GD.Print("Game Over");
 		Gui.Show();
-		_game.StopGame();
+		_game?.StopGame();
 	}
 
 }

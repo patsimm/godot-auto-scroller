@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://k3tdpfdtkk1d"]
+[gd_scene load_steps=7 format=3 uid="uid://k3tdpfdtkk1d"]
 
 [ext_resource type="Script" path="res://src/Player.cs" id="1_mdlgb"]
 [ext_resource type="Script" path="res://src/MassComponent.cs" id="2_abojg"]
 [ext_resource type="Script" path="res://src/VelocityComponent.cs" id="3_k3xfh"]
 [ext_resource type="Script" path="res://src/MovementComponent.cs" id="4_aur1r"]
+[ext_resource type="Script" path="res://src/JumpComponent.cs" id="5_kwpby"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k5okc"]
 size = Vector2(40, 40)
@@ -49,6 +50,10 @@ script = ExtResource("4_aur1r")
 VelocityComponent = NodePath("../VelocityComponent")
 _movementMaxSpeed = 600.0
 _movementAcceleration = 12.0
+
+[node name="JumpComponent" type="Node2D" parent="." node_paths=PackedStringArray("VelocityComponent", "MovementComponent")]
+script = ExtResource("5_kwpby")
+VelocityComponent = NodePath("../VelocityComponent")
+MovementComponent = NodePath("../MovementComponent")
 _jumpAcceleration = 2500.0
-_jumpDuration = 0.5
-_wallJumpCoolDown = 2.08165e-12
+_wallJumpCoolDown = 0.1
