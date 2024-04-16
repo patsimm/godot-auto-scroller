@@ -1,20 +1,21 @@
+using System;
 using Godot;
 
-public partial class Player : CharacterBody2D
-{
+namespace Platformer;
 
-	public required MovementComponent MovementComponent;
+public partial class Player : CharacterBody2D {
+	public required MovementComponent MovementComponent { get; set; }
 
-	public required JumpComponent JumpComponent;
+	public required JumpComponent JumpComponent { get; set; }
 
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		MovementComponent = GetNode<MovementComponent>("MovementComponent");
 		JumpComponent = GetNode<JumpComponent>("JumpComponent");
 	}
 
-	public override void _Input(InputEvent @event)
-	{
+	public override void _Input(InputEvent @event) {
+		if (@event is null) throw new ArgumentNullException(nameof(@event));
+
 		if (@event.IsActionPressed("jump"))
 			JumpComponent.JumpStart();
 		if (@event.IsActionReleased("jump"))

@@ -1,13 +1,15 @@
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-public abstract partial class Component<T> : Node2D where T : Node
-{
-    public required T Parent;
+namespace Platformer;
 
-    public override string[] _GetConfigurationWarnings()
-    {
-        var errors = base._GetConfigurationWarnings().ToList();
+public abstract partial class Component<T> : Node2D where T : Node {
+    public required T Entity { get; set; }
+
+    public override string[] _GetConfigurationWarnings() {
+        var errors = base._GetConfigurationWarnings()?.ToList()
+            ?? new List<string>();
 
         if (GetParent() is not T)
             errors.Add($"Component must be child of {typeof(T).Name}");
@@ -15,8 +17,7 @@ public abstract partial class Component<T> : Node2D where T : Node
         return errors.ToArray();
     }
 
-    public override void _Ready()
-    {
-        Parent = GetParent<T>();
+    public override void _Ready() {
+        Entity = GetParent<T>();
     }
 }

@@ -1,16 +1,16 @@
-using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
+namespace Platformer;
+
 [Tool]
 [GlobalClass]
-public partial class JumpComponent : Component<CharacterBody2D>
-{
+public partial class JumpComponent : Component<CharacterBody2D> {
     [Export]
-    public required VelocityComponent VelocityComponent;
+    public required VelocityComponent VelocityComponent { get; set; }
 
     [Export]
-    public required MovementComponent MovementComponent;
+    public required MovementComponent MovementComponent { get; set; }
 
     [Export]
     private float _jumpAcceleration = 4000;
@@ -27,8 +27,7 @@ public partial class JumpComponent : Component<CharacterBody2D>
 
     private Timer _jumpDurationTimer = new();
 
-    public override void _Ready()
-    {
+    public override void _Ready() {
         base._Ready();
 
         _jumpDurationTimer.WaitTime = _jumpDuration;
@@ -40,8 +39,7 @@ public partial class JumpComponent : Component<CharacterBody2D>
         AddChild(_wallJumpCoolDownDurationTimer);
     }
 
-    public override string[] _GetConfigurationWarnings()
-    {
+    public override string[] _GetConfigurationWarnings() {
         var errors = base._GetConfigurationWarnings().ToList();
 
         if (VelocityComponent is null)
@@ -53,42 +51,36 @@ public partial class JumpComponent : Component<CharacterBody2D>
         return errors.ToArray();
     }
 
-    public void JumpStart()
-    {
-        if (Parent.IsOnFloor())
-        {
+    public void JumpStart() {
+        if (Entity.IsOnFloor()) {
             _jumpDurationTimer.Start();
             _wallJumpCoolDownDurationTimer.Stop();
             VelocityComponent.AddVelocity(Vector2.Up * _jumpAcceleration * 0.33f);
         }
 
-        if (Parent.IsOnWallOnly() && _wallJumpCoolDownDurationTimer.TimeLeft <= 0)
-        {
+        if (Entity.IsOnWallOnly() && _wallJumpCoolDownDurationTimer.TimeLeft <= 0) {
             _jumpDurationTimer.Start();
             _wallJumpCoolDownDurationTimer.Start();
             MovementComponent.ReduceMovementSpeed(.2);
-            var jumpDirection = (Vector2.Up + Parent.GetWallNormal()).Normalized();
+            var jumpDirection = (Vector2.Up + Entity.GetWallNormal()).Normalized();
             VelocityComponent.AddVelocity(jumpDirection * _jumpAcceleration * 0.4f);
         }
     }
 
-    public void JumpEnd()
-    {
+    public void JumpEnd() {
         if (_jumpDurationTimer.TimeLeft > 0)
             _jumpDurationTimer.Stop();
     }
 
-    public override void _PhysicsProcess(double delta)
-    {
-        if (Engine.IsEditorHint()) return;
+    public override void _PhysicsProcess(double delta) {
+        if (Engine.IsEditorHint())
+            return;
 
-        if (Parent.IsOnCeiling())
-        {
+        if (Entity.IsOnCeiling()) {
             _jumpDurationTimer.Stop();
         }
 
-        if (_jumpDurationTimer.TimeLeft > 0)
-        {
+        if (_jumpDurationTimer.TimeLeft > 0) {
             GD.Print(delta);
             VelocityComponent.AddVelocity(Vector2.Up * _jumpAcceleration * (float)delta);
         }
