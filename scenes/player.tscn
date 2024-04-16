@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://k3tdpfdtkk1d"]
 
 [ext_resource type="Script" path="res://src/Player.cs" id="1_mdlgb"]
-[ext_resource type="Script" path="res://src/MassComponent.cs" id="2_abojg"]
-[ext_resource type="Script" path="res://src/VelocityComponent.cs" id="3_hupuc"]
-[ext_resource type="Script" path="res://src/MovementComponent.cs" id="4_wfmro"]
-[ext_resource type="Script" path="res://src/JumpComponent.cs" id="5_oyp4a"]
+[ext_resource type="Script" path="res://src/MassComponent.cs" id="2_w4ydv"]
+[ext_resource type="Script" path="res://src/VelocityComponent.cs" id="3_pl70j"]
+[ext_resource type="Script" path="res://src/MovementComponent.cs" id="4_cbaak"]
+[ext_resource type="Script" path="res://src/JumpComponent.cs" id="5_x4c7e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k5okc"]
 size = Vector2(40, 40)
@@ -37,22 +37,21 @@ wait_time = 0.3
 one_shot = true
 
 [node name="MassComponent" type="Node2D" parent="." node_paths=PackedStringArray("VelocityComponent")]
-script = ExtResource("2_abojg")
+script = ExtResource("2_w4ydv")
 VelocityComponent = NodePath("../VelocityComponent")
 _mass = 4.0
 
 [node name="VelocityComponent" type="Node2D" parent="."]
-script = ExtResource("3_hupuc")
-_maxAcceleration = 500.0
+script = ExtResource("3_pl70j")
 
 [node name="MovementComponent" type="Node2D" parent="." node_paths=PackedStringArray("VelocityComponent")]
-script = ExtResource("4_wfmro")
+script = ExtResource("4_cbaak")
 VelocityComponent = NodePath("../VelocityComponent")
 _movementMaxSpeed = 500.0
 _movementAcceleration = 10.0
 
 [node name="JumpComponent" type="Node2D" parent="." node_paths=PackedStringArray("VelocityComponent", "MovementComponent")]
-script = ExtResource("5_oyp4a")
+script = ExtResource("5_x4c7e")
 VelocityComponent = NodePath("../VelocityComponent")
 MovementComponent = NodePath("../MovementComponent")
 _jumpAcceleration = 2500.0

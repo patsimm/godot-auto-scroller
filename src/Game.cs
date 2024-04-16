@@ -6,17 +6,18 @@ public partial class Game : Node2D {
 	[Signal]
 	public delegate void GameOverEventHandler();
 
+	[Signal]
+	public delegate void GameStartEventHandler();
+
 	public void OnPlayerHitFloor(Player _) {
-		GD.Print("Player hit floor");
-		EmitSignal(SignalName.GameOver);
+		StopGame();
 	}
 
 	public void NewGame() {
-		var scroller = GetNode<Scroller>("Scroller");
-		scroller.StartScrolling();
+		EmitSignal(SignalName.GameStart);
 	}
 
 	public void StopGame() {
-		GetNode<Scroller>("Scroller").StopScrolling();
+		EmitSignal(SignalName.GameOver);
 	}
 }

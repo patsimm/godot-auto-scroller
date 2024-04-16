@@ -34,6 +34,5 @@ public partial class Main : Node2D {
 	public void OnGameOver() {
 		GD.Print("Game Over");
 		Gui.Show();
-		_game?.StopGame();
 	}
 }

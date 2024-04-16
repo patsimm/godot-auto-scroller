@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dqyuomn8k3oa4"]
+[gd_scene load_steps=10 format=3 uid="uid://dqyuomn8k3oa4"]
 
 [ext_resource type="Script" path="res://src/Game.cs" id="1_8voc7"]
 [ext_resource type="PackedScene" uid="uid://k3tdpfdtkk1d" path="res://scenes/player.tscn" id="2_rppvg"]
 [ext_resource type="PackedScene" uid="uid://bmalvvpwditnc" path="res://scenes/world.tscn" id="3_kkydt"]
-[ext_resource type="Script" path="res://src/Scroller.cs" id="4_a6hm0"]
+[ext_resource type="Script" path="res://src/Camera.cs" id="4_kqxex"]
 [ext_resource type="Script" path="res://src/Floor.cs" id="4_nd5mw"]
+[ext_resource type="Script" path="res://src/AutoScrollComponent.cs" id="6_o7csu"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qp5jk"]
 
@@ -39,19 +40,24 @@ metadata/_edit_group_ = true
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_ixmvd")
 
-[node name="Scroller" type="Node2D" parent="."]
-script = ExtResource("4_a6hm0")
-
-[node name="Floor" type="Area2D" parent="Scroller"]
-position = Vector2(960, 1144)
-collision_layer = 2
-script = ExtResource("4_nd5mw")
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(2.08165e-12, 2.08165e-12)
+anchor_mode = 0
+script = ExtResource("4_kqxex")
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Scroller/Floor"]
+[node name="Floor" type="Area2D" parent="Camera2D"]
+position = Vector2(2.08165e-12, 1080)
+collision_layer = 2
+script = ExtResource("4_nd5mw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Floor"]
+position = Vector2(2.08165e-12, 2.08165e-12)
 shape = SubResource("WorldBoundaryShape2D_pqmwf")
 
-[node name="Camera2D" type="Camera2D" parent="Scroller"]
-position = Vector2(964, 548)
+[node name="AutoScrollComponent" type="Node2D" parent="Camera2D"]
+script = ExtResource("6_o7csu")
 
-[connection signal="PlayerHitFloor" from="Scroller/Floor" to="." method="OnPlayerHitFloor"]
+[connection signal="GameOver" from="." to="Camera2D/AutoScrollComponent" method="StopScrolling"]
+[connection signal="GameStart" from="." to="Camera2D/AutoScrollComponent" method="StartScrolling"]
+[connection signal="PlayerHitFloor" from="Camera2D/Floor" to="." method="OnPlayerHitFloor"]

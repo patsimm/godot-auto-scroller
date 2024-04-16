@@ -2,7 +2,9 @@ using Godot;
 
 namespace Platformer;
 
-public partial class Scroller : Node2D {
+[Tool]
+[GlobalClass]
+public partial class AutoScrollComponent : Component<Camera2D> {
 	[Export]
 	private float _speed = 100;
 
@@ -11,6 +13,7 @@ public partial class Scroller : Node2D {
 	private float _startPosition;
 
 	public override void _Ready() {
+		base._Ready();
 		_startPosition = Position.X;
 	}
 
@@ -23,8 +26,9 @@ public partial class Scroller : Node2D {
 	}
 
 	public override void _PhysicsProcess(double delta) {
-		if (!_running)
+		if (!_running || Engine.IsEditorHint())
 			return;
-		Translate(Vector2.Up * (float)delta * _speed);
+
+		Entity.Translate(Vector2.Up * (float)delta * _speed);
 	}
 }
