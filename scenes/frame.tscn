@@ -20,6 +20,7 @@ Height = 200.0
 
 [node name="Top" type="Area2D" parent="."]
 position = Vector2(100, 0)
+collision_layer = 0
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Top"]
@@ -27,6 +28,7 @@ shape = SubResource("WorldBoundaryShape2D_rv3sf")
 
 [node name="Bottom" type="Area2D" parent="."]
 position = Vector2(100, 200)
+collision_layer = 0
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom"]
@@ -34,6 +36,7 @@ shape = SubResource("WorldBoundaryShape2D_du2j1")
 
 [node name="Left" type="Area2D" parent="."]
 position = Vector2(0, 100)
+collision_layer = 0
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
@@ -41,6 +44,7 @@ shape = SubResource("WorldBoundaryShape2D_nqn0y")
 
 [node name="Right" type="Area2D" parent="."]
 position = Vector2(200, 100)
+collision_layer = 0
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]

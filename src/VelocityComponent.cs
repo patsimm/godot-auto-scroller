@@ -24,6 +24,23 @@ public partial class VelocityComponent : Component<Node2D> {
 		Velocity += force;
 	}
 
+    public void AccelerateToTargetSpeed(Vector2 targetSpeed, float acceleration, double delta) {
+        var speedDelta = targetSpeed - Velocity;
+
+        if (speedDelta == Vector2.Zero)
+            return;
+
+        var movement = speedDelta * acceleration * (float)delta;
+
+        AddVelocity(movement);
+    }
+
+    public void Decelerate(float acceleration, double delta) {
+        if (InitialVelocity == Velocity) return;
+        GD.Print("Decelerate");
+        AccelerateToTargetSpeed(InitialVelocity, acceleration, delta);
+    }
+
 	public bool IsFalling() {
 		return Velocity.Y > 0;
 	}

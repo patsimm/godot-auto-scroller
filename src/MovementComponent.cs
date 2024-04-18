@@ -43,15 +43,10 @@ public partial class MovementComponent : Component<CharacterBody2D> {
 
 		var acceleration = Entity.IsOnFloor() ? _movementAcceleration : _movementAcceleration / 3;
 
-		var targetSpeed = Direction.X * _movementMaxSpeed * (float)maxSpeedFactor;
-		var speedDelta = targetSpeed - VelocityComponent.Velocity.X;
+		var targetSpeedX = Direction.X * _movementMaxSpeed * (float)maxSpeedFactor;
+        var targetSpeed = new Vector2(targetSpeedX, VelocityComponent.Velocity.Y);
 
-		if (speedDelta == 0)
-			return;
-
-		var movement = speedDelta * acceleration * (float)delta;
-
-		VelocityComponent.AddVelocity(movement * Vector2.Right);
+        VelocityComponent.AccelerateToTargetSpeed(targetSpeed, acceleration, delta);
 	}
 
 	public override void _PhysicsProcess(double delta) {
