@@ -3,9 +3,10 @@
 [ext_resource type="Script" path="res://src/Gui.cs" id="1_w1f33"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_r858q"]
-font_size = 32
+font_size = 64
 
 [node name="GUI" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_w1f33")
 
 [node name="Control" type="Control" parent="."]
@@ -52,6 +53,7 @@ label_settings = SubResource("LabelSettings_r858q")
 
 [node name="PlayAgainButton" type="Button" parent="Control/MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 64
 text = "Play Again"
 
 [connection signal="pressed" from="Control/MarginContainer/Panel/MarginContainer/VBoxContainer/PlayAgainButton" to="." method="OnPlayAgainButtonPressed"]

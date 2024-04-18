@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://dqyuomn8k3oa4"]
+[gd_scene load_steps=12 format=3 uid="uid://dqyuomn8k3oa4"]
 
 [ext_resource type="Script" path="res://src/Game.cs" id="1_8voc7"]
 [ext_resource type="PackedScene" uid="uid://k3tdpfdtkk1d" path="res://scenes/player.tscn" id="2_rppvg"]
 [ext_resource type="PackedScene" uid="uid://bmalvvpwditnc" path="res://scenes/world.tscn" id="3_kkydt"]
 [ext_resource type="Script" path="res://src/Camera.cs" id="4_kqxex"]
 [ext_resource type="Script" path="res://src/Floor.cs" id="4_nd5mw"]
-[ext_resource type="Script" path="res://src/AutoScrollComponent.cs" id="6_o7csu"]
+[ext_resource type="Script" path="res://src/FollowNode2DComponent.cs" id="6_8o7bh"]
+[ext_resource type="Script" path="res://src/VelocityComponent.cs" id="6_gd6r0"]
+[ext_resource type="PackedScene" uid="uid://c0uoc0p4g0b0m" path="res://scenes/frame.tscn" id="7_cf2t2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qp5jk"]
 
@@ -44,7 +46,6 @@ shape = SubResource("WorldBoundaryShape2D_ixmvd")
 position = Vector2(2.08165e-12, 2.08165e-12)
 anchor_mode = 0
 script = ExtResource("4_kqxex")
-metadata/_edit_group_ = true
 
 [node name="Floor" type="Area2D" parent="Camera2D"]
 position = Vector2(2.08165e-12, 1080)
@@ -55,9 +56,18 @@ script = ExtResource("4_nd5mw")
 position = Vector2(2.08165e-12, 2.08165e-12)
 shape = SubResource("WorldBoundaryShape2D_pqmwf")
 
-[node name="AutoScrollComponent" type="Node2D" parent="Camera2D"]
-script = ExtResource("6_o7csu")
+[node name="VelocityComponent" type="Node" parent="Camera2D"]
+script = ExtResource("6_gd6r0")
+InitialVelocity = Vector2(2.08165e-12, -100)
 
-[connection signal="GameOver" from="." to="Camera2D/AutoScrollComponent" method="StopScrolling"]
-[connection signal="GameStart" from="." to="Camera2D/AutoScrollComponent" method="StartScrolling"]
+[node name="Frame" parent="Camera2D" instance=ExtResource("7_cf2t2")]
+position = Vector2(2.08165e-12, 120)
+Width = 1920.0
+Height = 960.0
+
+[node name="FollowNode2DComponent" type="Node" parent="Camera2D" node_paths=PackedStringArray("TargetNode", "KeepInArea")]
+script = ExtResource("6_8o7bh")
+TargetNode = NodePath("../../Player")
+KeepInArea = NodePath("../Frame")
+
 [connection signal="PlayerHitFloor" from="Camera2D/Floor" to="." method="OnPlayerHitFloor"]

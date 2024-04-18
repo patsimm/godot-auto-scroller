@@ -14,7 +14,7 @@ public partial class AutoScrollComponent : Component<Camera2D> {
 
 	public override void _Ready() {
 		base._Ready();
-		_startPosition = Position.X;
+		_startPosition = Entity.Position.X;
 	}
 
 	public void StartScrolling() {

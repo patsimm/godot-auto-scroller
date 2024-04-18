@@ -29,10 +29,12 @@ public partial class Main : Node2D {
 			_game.QueueFree();
 		}
 		StartGame();
+		GetTree().Paused = false;
 	}
 
 	public void OnGameOver() {
 		GD.Print("Game Over");
+		GetTree().Paused = true;
 		Gui.Show();
 	}
 }

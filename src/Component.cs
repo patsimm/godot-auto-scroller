@@ -4,7 +4,7 @@ using Godot;
 
 namespace Platformer;
 
-public abstract partial class Component<T> : Node2D where T : Node {
+public abstract partial class Component<T> : Node where T : Node {
     public required T Entity { get; set; }
 
     public override string[] _GetConfigurationWarnings() {
