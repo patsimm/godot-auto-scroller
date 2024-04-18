@@ -15,7 +15,6 @@ public partial class FollowNode2DComponent : Component<Node2D> {
         var normal = KeepInArea.GetFrameNormal(TargetNode);
         if (normal != Vector2.Zero) {
             var distance = KeepInArea.DistanceToBody(TargetNode);
-            GD.Print(distance.ToString());
             Entity.Position += distance;
         }
     }

@@ -81,7 +81,6 @@ public partial class JumpComponent : Component<CharacterBody2D> {
         }
 
         if (_jumpDurationTimer.TimeLeft > 0) {
-            GD.Print(delta);
             VelocityComponent.AddVelocity(Vector2.Up * _jumpAcceleration * (float)delta);
         }
     }
