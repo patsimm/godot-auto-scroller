@@ -27,16 +27,18 @@ public partial class MassComponent : Component<CharacterBody2D> {
 		if (Engine.IsEditorHint())
 			return;
 
-		if (!Entity.IsOnFloor()) {
-			VelocityComponent.AddVelocity(Vector2.Down * _mass * _gravity * (float)delta);
+        if (Entity.IsOnFloor()) return;
 
-			if (VelocityComponent.Velocity.Y > 500 && Entity.IsOnWall()) {
-				VelocityComponent.Velocity = new Vector2(VelocityComponent.Velocity.X, 500);
-			}
+        var gravity = VelocityComponent.IsFalling() ? _gravity * 2 : _gravity;
 
-			if (VelocityComponent.Velocity.Y > 900) {
-				VelocityComponent.Velocity = new Vector2(VelocityComponent.Velocity.X, 900);
-			}
-		}
-	}
+        VelocityComponent.AddForce(Vector2.Down * _mass * gravity * (float)delta);
+
+        if (VelocityComponent.Velocity.Y > 500 && Entity.IsOnWall()) {
+            VelocityComponent.Velocity = new Vector2(VelocityComponent.Velocity.X, 500);
+        }
+
+        if (VelocityComponent.Velocity.Y > 900) {
+            VelocityComponent.Velocity = new Vector2(VelocityComponent.Velocity.X, 900);
+        }
+    }
 }
