@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bmalvvpwditnc"]
+[gd_scene load_steps=4 format=3 uid="uid://bmalvvpwditnc"]
 
 [ext_resource type="PackedScene" uid="uid://bcvgrm1j7cljg" path="res://scenes/Block.tscn" id="1_cmy44"]
+[ext_resource type="Script" path="res://src/World.cs" id="1_et70f"]
+[ext_resource type="PackedScene" uid="uid://7o3onuhjopdr" path="res://scenes/level_goal.tscn" id="2_qf2wc"]
 
 [node name="World" type="Node"]
+script = ExtResource("1_et70f")
 
 [node name="Blocks" type="Node2D" parent="."]
 
@@ -59,3 +62,8 @@ position = Vector2(256, -1408)
 scale = Vector2(4, 1)
 collision_mask = 0
 sync_to_physics = true
+
+[node name="LevelGoal" parent="." instance=ExtResource("2_qf2wc")]
+position = Vector2(329, -1639)
+
+[connection signal="PlayerReachedGoal" from="LevelGoal" to="." method="OnPlayerReachedGoal"]
