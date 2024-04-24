@@ -6,46 +6,45 @@ namespace Platformer;
 [Tool]
 [GlobalClass]
 public partial class VelocityComponent : Component<Node2D> {
-	[Export]
-	private float _maxAcceleration = 1000;
+    [Export]
+    private float _maxVelocity = 850;
 
-	[Export]
-	public Vector2 InitialVelocity { get; set; } = Vector2.Zero;
+    [Export]
+	private Vector2 _initialVelocity = Vector2.Zero;
 
-	public Vector2 Velocity { get; set; } = Vector2.Zero;
+    public Vector2 Velocity { get; set; } = Vector2.Zero;
 
 	public override void _Ready() {
 		base._Ready();
 
-		Velocity = InitialVelocity;
+		Velocity = _initialVelocity;
 	}
 
-	public void AddVelocity(Vector2 force) {
+	public void AddForce(Vector2 force) {
 		Velocity += force;
 	}
 
     public void AccelerateToTargetSpeed(Vector2 targetSpeed, float acceleration, double delta) {
-        var speedDelta = targetSpeed - Velocity;
+        var speedDelta = targetSpeed.LimitLength(_maxVelocity) - Velocity;
 
         if (speedDelta == Vector2.Zero)
             return;
 
         var movement = speedDelta * acceleration * (float)delta;
 
-        AddVelocity(movement);
+        AddForce(movement);
     }
 
     public void Decelerate(float acceleration, double delta) {
-        if (InitialVelocity == Velocity) return;
-        GD.Print("Decelerate");
-        AccelerateToTargetSpeed(InitialVelocity, acceleration, delta);
+        if (_initialVelocity == Velocity) return;
+        AccelerateToTargetSpeed(_initialVelocity, acceleration, delta);
     }
 
 	public bool IsFalling() {
 		return Velocity.Y > 0;
 	}
 
-	public void ApplyVelocityAndSlide(CharacterBody2D characterBody2D) {
+    private void ApplyVelocityAndSlide(CharacterBody2D characterBody2D) {
 		if (characterBody2D is null)
 			throw new ArgumentNullException(nameof(characterBody2D));
 
@@ -54,7 +53,7 @@ public partial class VelocityComponent : Component<Node2D> {
 		Velocity = characterBody2D.Velocity;
 	}
 
-	public void ApplyVelocityAndCollide(PhysicsBody2D rigidBody2D) {
+    private void ApplyVelocityAndCollide(PhysicsBody2D rigidBody2D) {
 		if (rigidBody2D is null)
 			throw new ArgumentNullException(nameof(rigidBody2D));
 
@@ -63,7 +62,7 @@ public partial class VelocityComponent : Component<Node2D> {
 		if (collision is not null) Velocity = Vector2.Zero;
 	}
 
-	public void ApplyVelocity(Node2D node2D) {
+    private void ApplyVelocity(Node2D node2D) {
 		if (node2D is null)
 			throw new ArgumentNullException(nameof(node2D));
 

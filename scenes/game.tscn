@@ -58,7 +58,7 @@ shape = SubResource("WorldBoundaryShape2D_pqmwf")
 
 [node name="VelocityComponent" type="Node" parent="Camera2D"]
 script = ExtResource("6_gd6r0")
-InitialVelocity = Vector2(2.08165e-12, -100)
+_initialVelocity = Vector2(2.08165e-12, -100)
 
 [node name="Frame" parent="Camera2D" instance=ExtResource("7_cf2t2")]
 position = Vector2(2.08165e-12, 192)

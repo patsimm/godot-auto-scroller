@@ -55,7 +55,7 @@ public partial class JumpComponent : Component<CharacterBody2D> {
         if (Entity.IsOnFloor()) {
             _jumpDurationTimer.Start();
             _wallJumpCoolDownDurationTimer.Stop();
-            VelocityComponent.AddVelocity(Vector2.Up * _jumpAcceleration * 0.33f);
+            VelocityComponent.AddForce(Vector2.Up * _jumpAcceleration * 0.33f);
         }
 
         if (Entity.IsOnWallOnly() && _wallJumpCoolDownDurationTimer.TimeLeft <= 0) {
@@ -63,7 +63,7 @@ public partial class JumpComponent : Component<CharacterBody2D> {
             _wallJumpCoolDownDurationTimer.Start();
             MovementComponent.ReduceMovementSpeed(.2);
             var jumpDirection = (Vector2.Up + Entity.GetWallNormal()).Normalized();
-            VelocityComponent.AddVelocity(jumpDirection * _jumpAcceleration * 0.4f);
+            VelocityComponent.AddForce(jumpDirection * _jumpAcceleration * 0.4f);
         }
     }
 
@@ -81,7 +81,7 @@ public partial class JumpComponent : Component<CharacterBody2D> {
         }
 
         if (_jumpDurationTimer.TimeLeft > 0) {
-            VelocityComponent.AddVelocity(Vector2.Up * _jumpAcceleration * (float)delta);
+            VelocityComponent.AddForce(Vector2.Up * _jumpAcceleration * (float)delta);
         }
     }
 }
