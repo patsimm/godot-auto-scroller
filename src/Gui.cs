@@ -28,6 +28,6 @@ public partial class Gui : CanvasLayer {
 	public void OnPlayAgainButtonPressed() {
 		LevelCompletedContainer.Hide();
 		GameOverContainer.Hide();
-		_ = EmitSignal(SignalName.PlayAgainButtonPressed);
+		EmitSignal(SignalName.PlayAgainButtonPressed);
 	}
 }
