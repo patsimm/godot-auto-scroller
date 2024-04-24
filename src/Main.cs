@@ -25,10 +25,7 @@ public partial class Main : Node2D {
 	}
 
 	public void Restart() {
-		if (_game is not null) {
-			_game.GameOver -= OnGameOver;
-			_game.QueueFree();
-		}
+		_game?.QueueFree();
 		StartGame();
 		GetTree().Paused = false;
 	}
@@ -40,6 +37,7 @@ public partial class Main : Node2D {
 	}
 
 	public void OnLevelCompleted() {
+		GetTree().Paused = true;
 		Gui.Show();
 		Gui.ShowLevelCompleted();
 	}
