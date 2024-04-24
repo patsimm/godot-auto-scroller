@@ -9,8 +9,15 @@ public partial class Game : Node2D {
 	[Signal]
 	public delegate void GameStartEventHandler();
 
+	[Signal]
+	public delegate void LevelCompletedEventHandler();
+
 	public void OnPlayerHitFloor(Player _) {
 		StopGame();
+	}
+
+	public void OnLevelCompleted() {
+		EmitSignal(SignalName.LevelCompleted);
 	}
 
 	public void NewGame() {

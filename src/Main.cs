@@ -19,15 +19,13 @@ public partial class Main : Node2D {
 		Gui.Hide();
 		_game = (Game)_gameScene.Instantiate();
 		_game.GameOver += OnGameOver;
+		_game.LevelCompleted += OnLevelCompleted;
 		AddChild(_game);
 		_game.NewGame();
 	}
 
 	public void Restart() {
-		if (_game is not null) {
-			_game.GameOver -= OnGameOver;
-			_game.QueueFree();
-		}
+		_game?.QueueFree();
 		StartGame();
 		GetTree().Paused = false;
 	}
@@ -35,5 +33,12 @@ public partial class Main : Node2D {
 	public void OnGameOver() {
 		GetTree().Paused = true;
 		Gui.Show();
+		Gui.ShowGameOver();
+	}
+
+	public void OnLevelCompleted() {
+		GetTree().Paused = true;
+		Gui.Show();
+		Gui.ShowLevelCompleted();
 	}
 }
