@@ -6,6 +6,4 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_jt2ph")
 
-[node name="GUI" parent="." node_paths=PackedStringArray("GameOverContainer", "LevelCompletedContainer") instance=ExtResource("2_js21w")]
-GameOverContainer = NodePath("Control/MarginContainer/PanelContainer/Panel/MarginContainer/GameOver")
-LevelCompletedContainer = NodePath("Control/MarginContainer/PanelContainer/Panel/MarginContainer/LevelCompleted")
+[node name="GUI" parent="." instance=ExtResource("2_js21w")]

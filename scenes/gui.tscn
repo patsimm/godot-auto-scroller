@@ -1,14 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhfrsfho1vnlt"]
+[gd_scene load_steps=9 format=3 uid="uid://bhfrsfho1vnlt"]
 
 [ext_resource type="Script" path="res://src/Gui.cs" id="1_w1f33"]
+[ext_resource type="StyleBox" uid="uid://d2jagwrlbxupn" path="res://resources/button_styles_hover.tres" id="2_atad5"]
+[ext_resource type="StyleBox" uid="uid://cvokhb2f7utr1" path="res://resources/button_styles.tres" id="2_ls5wa"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_r858q"]
 font_size = 60
 
+[sub_resource type="InputEventKey" id="InputEventKey_rad80"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_la6ue"]
+events = [SubResource("InputEventKey_rad80")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_sebjk"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_iyitl"]
+events = [SubResource("InputEventKey_sebjk")]
+
 [node name="GUI" type="CanvasLayer" node_paths=PackedStringArray("GameOverContainer", "LevelCompletedContainer")]
+process_mode = 3
 script = ExtResource("1_w1f33")
-GameOverContainer = NodePath("Control/MarginContainer/PanelContainer/Panel/MarginContainer/GameOver")
-LevelCompletedContainer = NodePath("Control/MarginContainer/PanelContainer/Panel/MarginContainer/LevelCompleted")
+GameOverContainer = NodePath("Control/MarginContainer/Panel/MarginContainer/GameOver")
+LevelCompletedContainer = NodePath("Control/MarginContainer/Panel/MarginContainer/LevelCompleted")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -31,44 +48,58 @@ theme_override_constants/margin_top = 256
 theme_override_constants/margin_right = 512
 theme_override_constants/margin_bottom = 256
 
-[node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer"]
+[node name="Panel" type="PanelContainer" parent="Control/MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="Panel" type="PanelContainer" parent="Control/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/Panel"]
 layout_mode = 2
+theme_override_constants/margin_left = 256
+theme_override_constants/margin_top = 128
+theme_override_constants/margin_right = 256
+theme_override_constants/margin_bottom = 128
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/PanelContainer/Panel"]
+[node name="GameOver" type="VBoxContainer" parent="Control/MarginContainer/Panel/MarginContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 60
-theme_override_constants/margin_top = 64
-theme_override_constants/margin_right = 64
-theme_override_constants/margin_bottom = 64
+theme_override_constants/separation = 64
 
-[node name="GameOver" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer/Panel/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 32
-
-[node name="Label" type="Label" parent="Control/MarginContainer/PanelContainer/Panel/MarginContainer/GameOver"]
+[node name="Label" type="Label" parent="Control/MarginContainer/Panel/MarginContainer/GameOver"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 400
 text = "Game Over"
 label_settings = SubResource("LabelSettings_r858q")
 
-[node name="PlayAgainButton" type="Button" parent="Control/MarginContainer/PanelContainer/Panel/MarginContainer/GameOver"]
+[node name="PlayAgainButton" type="Button" parent="Control/MarginContainer/Panel/MarginContainer/GameOver"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 64
+theme_override_styles/hover = ExtResource("2_atad5")
+theme_override_styles/normal = ExtResource("2_ls5wa")
+shortcut = SubResource("Shortcut_la6ue")
 text = "Play Again"
 
-[node name="LevelCompleted" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer/Panel/MarginContainer"]
+[node name="LevelCompleted" type="VBoxContainer" parent="Control/MarginContainer/Panel/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="Control/MarginContainer/PanelContainer/Panel/MarginContainer/LevelCompleted"]
+[node name="Label" type="Label" parent="Control/MarginContainer/Panel/MarginContainer/LevelCompleted"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Level Completed!"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="Control/MarginContainer/PanelContainer/Panel/MarginContainer/GameOver/PlayAgainButton" to="." method="OnPlayAgainButtonPressed"]
+[node name="Button" type="Button" parent="Control/MarginContainer/Panel/MarginContainer/LevelCompleted"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover = ExtResource("2_atad5")
+theme_override_styles/normal = ExtResource("2_ls5wa")
+shortcut = SubResource("Shortcut_iyitl")
+text = "Play Again"
+
+[connection signal="pressed" from="Control/MarginContainer/Panel/MarginContainer/GameOver/PlayAgainButton" to="." method="OnPlayAgainButtonPressed"]
+[connection signal="pressed" from="Control/MarginContainer/Panel/MarginContainer/LevelCompleted/Button" to="." method="OnPlayAgainButtonPressed"]

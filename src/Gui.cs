@@ -13,7 +13,6 @@ public partial class Gui : CanvasLayer {
 	public required BoxContainer LevelCompletedContainer { get; set; }
 
 	public override void _Ready() {
-		VisibilityChanged += OnVisibilityChanged;
 		GameOverContainer.Hide();
 		LevelCompletedContainer.Hide();
 	}
@@ -26,14 +25,9 @@ public partial class Gui : CanvasLayer {
 		LevelCompletedContainer.Show();
 	}
 
-	public void OnVisibilityChanged() {
-		if (!Visible) {
-			GameOverContainer.Hide();
-			LevelCompletedContainer.Hide();
-		}
-	}
-
 	public void OnPlayAgainButtonPressed() {
+		LevelCompletedContainer.Hide();
+		GameOverContainer.Hide();
 		_ = EmitSignal(SignalName.PlayAgainButtonPressed);
 	}
 }

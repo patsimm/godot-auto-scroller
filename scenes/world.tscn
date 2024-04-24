@@ -64,6 +64,6 @@ collision_mask = 0
 sync_to_physics = true
 
 [node name="LevelGoal" parent="." instance=ExtResource("2_qf2wc")]
-position = Vector2(329, -1639)
+position = Vector2(311, -1635)
 
 [connection signal="PlayerReachedGoal" from="LevelGoal" to="." method="OnPlayerReachedGoal"]
