@@ -61,9 +61,9 @@ script = ExtResource("6_gd6r0")
 _initialVelocity = Vector2(2.08165e-12, -100)
 
 [node name="Frame" parent="Camera2D" instance=ExtResource("7_cf2t2")]
-position = Vector2(2.08165e-12, 192)
+position = Vector2(2.08165e-12, 280)
 Width = 1920.0
-Height = 888.0
+Height = 800.0
 
 [node name="FollowNode2DComponent" type="Node" parent="Camera2D" node_paths=PackedStringArray("VelocityComponent", "TargetNode", "KeepInArea")]
 script = ExtResource("6_8o7bh")

@@ -45,6 +45,8 @@ public partial class MovementComponent : Component<CharacterBody2D> {
         var targetSpeedX = Direction.X * _movementMaxSpeed * (float)maxSpeedFactor;
         var targetSpeed = new Vector2(targetSpeedX, VelocityComponent.Velocity.Y);
 
+        acceleration = targetSpeed == Vector2.Zero ? acceleration * 2 : acceleration;
+
         VelocityComponent.AccelerateToTargetSpeed(targetSpeed, acceleration, delta);
     }
 

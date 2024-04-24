@@ -10,7 +10,7 @@
 size = Vector2(40, 40)
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(0, 9.56772e+10)
+position = Vector2(2.08165e-12, 2.08165e-12)
 collision_mask = 3
 velocity = Vector2(0, 900)
 script = ExtResource("1_mdlgb")
@@ -43,12 +43,13 @@ _mass = 4.0
 
 [node name="VelocityComponent" type="Node2D" parent="."]
 script = ExtResource("3_pl70j")
+_maxSpeed = 1050.0
 
 [node name="MovementComponent" type="Node2D" parent="." node_paths=PackedStringArray("VelocityComponent")]
 script = ExtResource("4_cbaak")
 VelocityComponent = NodePath("../VelocityComponent")
 _movementMaxSpeed = 500.0
-_movementAcceleration = 10.0
+_movementAcceleration = 3000.0
 
 [node name="JumpComponent" type="Node2D" parent="." node_paths=PackedStringArray("VelocityComponent", "MovementComponent")]
 script = ExtResource("5_x4c7e")

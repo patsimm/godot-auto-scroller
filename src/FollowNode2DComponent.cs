@@ -19,12 +19,12 @@ public partial class FollowNode2DComponent : Component<Node2D> {
 
         var normal = KeepInArea.GetFrameNormal(TargetNode);
         if (normal == Vector2.Zero) {
-            VelocityComponent.Decelerate(7, delta);
+            VelocityComponent.Decelerate(3000, delta);
             return;
         }
 
         var distance = KeepInArea.DistanceToBody(TargetNode);
-        var acceleration = Mathf.Min(Mathf.Abs(distance.LengthSquared()) / 100, 80);
+        var acceleration = Mathf.Min(Mathf.Abs(distance.LengthSquared()), 2000);
 
         VelocityComponent.AccelerateToTargetSpeed(900 * normal, acceleration, delta);
     }

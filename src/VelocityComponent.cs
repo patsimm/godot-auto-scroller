@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Godot;
 
 namespace Platformer;
@@ -7,32 +8,39 @@ namespace Platformer;
 [GlobalClass]
 public partial class VelocityComponent : Component<Node2D> {
     [Export]
-    private float _maxVelocity = 850;
+    private float _maxSpeed = 850;
 
     [Export]
 	private Vector2 _initialVelocity = Vector2.Zero;
 
-    public Vector2 Velocity { get; set; } = Vector2.Zero;
+    public Vector2 Velocity { get; private set; } = Vector2.Zero;
 
 	public override void _Ready() {
 		base._Ready();
 
-		Velocity = _initialVelocity;
+		Velocity = _initialVelocity.LimitLength(_maxSpeed);
 	}
+
+    public void LimitVerticalSpeed(float verticalSpeedLimit) {
+        if (Mathf.Abs(Velocity.Y) <= verticalSpeedLimit) return;
+        var verticalSpeed = Mathf.Min(verticalSpeedLimit, Mathf.Abs(Velocity.Y)) * Mathf.Sign(Velocity.Y);
+        Velocity = new Vector2(Velocity.X, verticalSpeed);
+    }
 
 	public void AddForce(Vector2 force) {
-		Velocity += force;
-	}
+        Velocity = (Velocity + force).LimitLength(_maxSpeed);
+    }
 
-    public void AccelerateToTargetSpeed(Vector2 targetSpeed, float acceleration, double delta) {
-        var speedDelta = targetSpeed.LimitLength(_maxVelocity) - Velocity;
+    public void AccelerateToTargetSpeed(Vector2 targetVelocity, float acceleration, double delta) {
+        var velocityDelta = targetVelocity - Velocity;
 
-        if (speedDelta == Vector2.Zero)
+        if (velocityDelta == Vector2.Zero)
             return;
 
-        var movement = speedDelta * acceleration * (float)delta;
+        var force = velocityDelta.Normalized() * acceleration * (float)delta;
+        force = force.LimitLength(velocityDelta.Length());
 
-        AddForce(movement);
+        AddForce(force);
     }
 
     public void Decelerate(float acceleration, double delta) {
@@ -71,7 +79,7 @@ public partial class VelocityComponent : Component<Node2D> {
 	}
 
 	public override void _PhysicsProcess(double delta) {
-		if (Engine.IsEditorHint()) return;
+        if (Engine.IsEditorHint()) return;
 
 		switch (Entity) {
 			case CharacterBody2D characterBody2D:
