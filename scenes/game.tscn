@@ -71,7 +71,5 @@ VelocityComponent = NodePath("../VelocityComponent")
 TargetNode = NodePath("../../Player")
 KeepInArea = NodePath("../Frame")
 
-[connection signal="GameOver" from="." to="Camera2D/AutoScrollComponent" method="StopScrolling"]
-[connection signal="LevelCompleted" from="." to="Camera2D/AutoScrollComponent" method="StopScrolling"]
 [connection signal="LevelCompleted" from="World" to="." method="OnLevelCompleted"]
 [connection signal="PlayerHitFloor" from="Camera2D/Floor" to="." method="OnPlayerHitFloor"]
