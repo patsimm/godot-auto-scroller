@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using Godot;
 
 namespace Platformer;
@@ -22,8 +21,8 @@ public partial class VelocityComponent : Component<Node2D> {
 	}
 
     public void LimitVerticalSpeed(float verticalSpeedLimit) {
-        if (Mathf.Abs(Velocity.Y) <= verticalSpeedLimit) return;
-        var verticalSpeed = Mathf.Min(verticalSpeedLimit, Mathf.Abs(Velocity.Y)) * Mathf.Sign(Velocity.Y);
+        if (Velocity.Y <= verticalSpeedLimit) return;
+        var verticalSpeed = Mathf.Min(verticalSpeedLimit, Velocity.Y);
         Velocity = new Vector2(Velocity.X, verticalSpeed);
     }
 
