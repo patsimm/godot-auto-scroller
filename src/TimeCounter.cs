@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Platformer;
+
 public partial class TimeCounter : Node {
     private double _startTime;
     public double ElapsedTimeSeconds { get; private set; }

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cab8uw5lwrsgs"]
+
+[ext_resource type="PackedScene" uid="uid://dqyuomn8k3oa4" path="res://scenes/levels/base_level.tscn" id="1_a0v4w"]
+
+[node name="BaseLevel" instance=ExtResource("1_a0v4w")]
+
+[node name="FollowNode2DComponent" parent="Camera2D" index="3" node_paths=PackedStringArray("VelocityComponent", "TargetNode", "KeepInArea")]
+VelocityComponent = NodePath("../VelocityComponent")
+TargetNode = NodePath("../../Player")
+KeepInArea = NodePath("../Frame")

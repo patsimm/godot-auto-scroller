@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6qji4n4kfh5c"]
+[gd_scene load_steps=6 format=3 uid="uid://b6qji4n4kfh5c"]
 
 [ext_resource type="Script" path="res://src/Main.cs" id="1_jt2ph"]
 [ext_resource type="PackedScene" uid="uid://bhfrsfho1vnlt" path="res://scenes/gui.tscn" id="2_js21w"]
+[ext_resource type="Script" path="res://src/LevelLoaderComponent.cs" id="3_oryls"]
 [ext_resource type="Script" path="res://src/TimeCounter.cs" id="4_cjien"]
 [ext_resource type="PackedScene" uid="uid://enuaacqdhpbv" path="res://scenes/hud.tscn" id="5_mpuar"]
 
@@ -19,4 +20,9 @@ GameTimeLabel = NodePath("Control/MarginContainer/Panel/MarginContainer/LevelCom
 [node name="GameTimeCounter" type="Node" parent="."]
 script = ExtResource("4_cjien")
 
+[node name="LevelLoaderComponent" type="Node" parent="."]
+script = ExtResource("3_oryls")
+
 [connection signal="GameTimeChanged" from="GameTimeCounter" to="HUD" method="UpdateGameTime"]
+[connection signal="LevelCompleted" from="LevelLoaderComponent" to="." method="OnLevelCompleted"]
+[connection signal="LevelFailed" from="LevelLoaderComponent" to="." method="OnLevelFailed"]

@@ -1,5 +1,6 @@
 using Godot;
-using Platformer;
+
+namespace Platformer;
 
 public partial class Hud : CanvasLayer
 {
