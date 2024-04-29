@@ -33,12 +33,11 @@ public partial class MassComponent : Component<CharacterBody2D> {
 
         VelocityComponent.AddForce(Vector2.Down * _mass * gravity * (float)delta);
 
-        if (VelocityComponent.Velocity.Y > 500 && Entity.IsOnWall()) {
-            VelocityComponent.Velocity = new Vector2(VelocityComponent.Velocity.X, 500);
+        if (Entity.IsOnWall()) {
+            VelocityComponent.LimitVerticalSpeed(500f);
         }
-
-        if (VelocityComponent.Velocity.Y > 900) {
-            VelocityComponent.Velocity = new Vector2(VelocityComponent.Velocity.X, 900);
+        else {
+            VelocityComponent.LimitVerticalSpeed(900f);
         }
     }
 }
