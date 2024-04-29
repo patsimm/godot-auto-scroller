@@ -13,6 +13,9 @@ public partial class JumpComponent : Component<CharacterBody2D> {
     public required MovementComponent MovementComponent { get; set; }
 
     [Export]
+    public CoyoteTimeComponent? CoyoteTimeComponent { get; set; }
+
+    [Export]
     private float _jumpAcceleration = 4000;
 
     [Export]
@@ -21,9 +24,9 @@ public partial class JumpComponent : Component<CharacterBody2D> {
     [Export]
     private double _wallJumpCoolDown = 0.3;
 
-    private Timer _wallJumpCoolDownDurationTimer = new();
-
     private Vector2 _jumpDirection = Vector2.Zero;
+
+    private Timer _wallJumpCoolDownDurationTimer = new();
 
     private Timer _jumpDurationTimer = new();
 
@@ -52,7 +55,7 @@ public partial class JumpComponent : Component<CharacterBody2D> {
     }
 
     public void JumpStart() {
-        if (Entity.IsOnFloor()) {
+        if (CoyoteTimeComponent?.CoyoteTimerCounter > 0f || Entity.IsOnFloor()) {
             _jumpDurationTimer.Start();
             _wallJumpCoolDownDurationTimer.Stop();
             VelocityComponent.AddForce(Vector2.Up * _jumpAcceleration * 0.33f);
