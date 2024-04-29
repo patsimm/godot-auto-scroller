@@ -9,14 +9,14 @@ public partial class CoyoteTimeComponent : Component<CharacterBody2D> {
     public required VelocityComponent VelocityComponent { get; set; }
 
     [Export]
-    private float _coyoteTime = 0.1f;
+    private float _coyoteTime = 0.08f;
 
     public float CoyoteTimerCounter { get; private set; }
 
     public override void _PhysicsProcess(double delta) {
         if (Engine.IsEditorHint()) return;
 
-        if (VelocityComponent.IsFalling()) {
+        if (VelocityComponent.Velocity.Y != 0) {
             CoyoteTimerCounter = 0f;
         }
 
