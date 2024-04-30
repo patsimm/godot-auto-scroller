@@ -10,6 +10,9 @@ public partial class MassComponent : Component<CharacterBody2D> {
 	public required VelocityComponent VelocityComponent { get; set; }
 
 	[Export]
+	public CoyoteTimeComponent? CoyoteTimeComponent { get; set; }
+
+	[Export]
 	private float _mass = 1;
 
 	private float _gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
@@ -27,17 +30,17 @@ public partial class MassComponent : Component<CharacterBody2D> {
 		if (Engine.IsEditorHint())
 			return;
 
-        if (Entity.IsOnFloor()) return;
+		if (Entity.IsOnFloor() || CoyoteTimeComponent?.CoyoteTimerCounter > 0f) return;
 
-        var gravity = VelocityComponent.IsFalling() ? _gravity * 2 : _gravity;
+		var gravity = VelocityComponent.IsFalling() ? _gravity * 2 : _gravity;
 
-        VelocityComponent.AddForce(Vector2.Down * _mass * gravity * (float)delta);
+		VelocityComponent.AddForce(Vector2.Down * _mass * gravity * (float)delta);
 
-        if (Entity.IsOnWall()) {
-            VelocityComponent.LimitVerticalSpeed(500f);
-        }
-        else {
-            VelocityComponent.LimitVerticalSpeed(900f);
-        }
-    }
+		if (Entity.IsOnWall()) {
+			VelocityComponent.LimitVerticalSpeed(500f);
+		}
+		else {
+			VelocityComponent.LimitVerticalSpeed(900f);
+		}
+	}
 }

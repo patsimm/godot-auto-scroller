@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://k3tdpfdtkk1d"]
+[gd_scene load_steps=8 format=3 uid="uid://k3tdpfdtkk1d"]
 
 [ext_resource type="Script" path="res://src/Player.cs" id="1_mdlgb"]
 [ext_resource type="Script" path="res://src/MassComponent.cs" id="2_w4ydv"]
 [ext_resource type="Script" path="res://src/VelocityComponent.cs" id="3_pl70j"]
 [ext_resource type="Script" path="res://src/MovementComponent.cs" id="4_cbaak"]
 [ext_resource type="Script" path="res://src/JumpComponent.cs" id="5_x4c7e"]
+[ext_resource type="Script" path="res://src/CoyoteTimeComponent.cs" id="6_j3swd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k5okc"]
 size = Vector2(40, 40)
@@ -36,9 +37,10 @@ shape = SubResource("RectangleShape2D_k5okc")
 wait_time = 0.3
 one_shot = true
 
-[node name="MassComponent" type="Node2D" parent="." node_paths=PackedStringArray("VelocityComponent")]
+[node name="MassComponent" type="Node2D" parent="." node_paths=PackedStringArray("VelocityComponent", "CoyoteTimeComponent")]
 script = ExtResource("2_w4ydv")
 VelocityComponent = NodePath("../VelocityComponent")
+CoyoteTimeComponent = NodePath("../CoyoteTimeComponent")
 _mass = 4.0
 
 [node name="VelocityComponent" type="Node2D" parent="."]
@@ -51,9 +53,15 @@ VelocityComponent = NodePath("../VelocityComponent")
 _movementMaxSpeed = 500.0
 _movementAcceleration = 3000.0
 
-[node name="JumpComponent" type="Node2D" parent="." node_paths=PackedStringArray("VelocityComponent", "MovementComponent")]
+[node name="JumpComponent" type="Node2D" parent="." node_paths=PackedStringArray("VelocityComponent", "MovementComponent", "CoyoteTimeComponent")]
 script = ExtResource("5_x4c7e")
 VelocityComponent = NodePath("../VelocityComponent")
 MovementComponent = NodePath("../MovementComponent")
+CoyoteTimeComponent = NodePath("../CoyoteTimeComponent")
 _jumpAcceleration = 2500.0
 _wallJumpCoolDown = 2.08165e-12
+
+[node name="CoyoteTimeComponent" type="Node" parent="." node_paths=PackedStringArray("VelocityComponent")]
+script = ExtResource("6_j3swd")
+VelocityComponent = NodePath("../VelocityComponent")
+_coyoteTime = 0.08
