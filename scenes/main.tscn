@@ -1,11 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6qji4n4kfh5c"]
+[gd_scene load_steps=5 format=3 uid="uid://b6qji4n4kfh5c"]
 
 [ext_resource type="Script" path="res://src/Main.cs" id="1_jt2ph"]
 [ext_resource type="PackedScene" uid="uid://bhfrsfho1vnlt" path="res://scenes/gui.tscn" id="2_js21w"]
+[ext_resource type="Script" path="res://src/TimeCounter.cs" id="4_cjien"]
+[ext_resource type="PackedScene" uid="uid://enuaacqdhpbv" path="res://scenes/hud.tscn" id="5_mpuar"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_jt2ph")
 
-[node name="GUI" parent="." node_paths=PackedStringArray("GameOverContainer", "LevelCompletedContainer") instance=ExtResource("2_js21w")]
+[node name="HUD" parent="." node_paths=PackedStringArray("GameTimeLabel") instance=ExtResource("5_mpuar")]
+GameTimeLabel = NodePath("Control/MarginContainer/GameTimeLabel")
+
+[node name="GUI" parent="." node_paths=PackedStringArray("GameOverContainer", "LevelCompletedContainer", "GameTimeLabel") instance=ExtResource("2_js21w")]
 GameOverContainer = NodePath("Control/MarginContainer/Panel/MarginContainer/GameOver")
 LevelCompletedContainer = NodePath("Control/MarginContainer/Panel/MarginContainer/LevelCompleted")
+GameTimeLabel = NodePath("Control/MarginContainer/Panel/MarginContainer/LevelCompleted/GameTimeLabel")
+
+[node name="GameTimeCounter" type="Node" parent="."]
+script = ExtResource("4_cjien")
+
+[connection signal="GameTimeChanged" from="GameTimeCounter" to="HUD" method="UpdateGameTime"]
