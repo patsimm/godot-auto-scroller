@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cab8uw5lwrsgs"]
+[gd_scene load_steps=5 format=3 uid="uid://cab8uw5lwrsgs"]
 
 [ext_resource type="PackedScene" uid="uid://dqyuomn8k3oa4" path="res://scenes/levels/base_level.tscn" id="1_a0v4w"]
+[ext_resource type="PackedScene" uid="uid://bcvgrm1j7cljg" path="res://scenes/block.tscn" id="2_sbn6c"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_n4ufr"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_x8uav"]
 
 [node name="BaseLevel" instance=ExtResource("1_a0v4w")]
 
@@ -8,3 +13,77 @@
 VelocityComponent = NodePath("../VelocityComponent")
 TargetNode = NodePath("../../Player")
 KeepInArea = NodePath("../Frame")
+
+[node name="WallRight" type="StaticBody2D" parent="." index="3"]
+position = Vector2(1920, 1080)
+collision_layer = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" index="0"]
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_n4ufr")
+
+[node name="WallLeft" type="StaticBody2D" parent="." index="4"]
+position = Vector2(2.08165e-12, 1080)
+collision_layer = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft" index="0"]
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_x8uav")
+
+[node name="Blocks" type="Node2D" parent="." index="5"]
+
+[node name="Block6" parent="Blocks" index="0" groups=["world_object"] instance=ExtResource("2_sbn6c")]
+position = Vector2(448, -832)
+scale = Vector2(2, 1)
+collision_mask = 0
+sync_to_physics = true
+
+[node name="Block5" parent="Blocks" index="1" groups=["world_object"] instance=ExtResource("2_sbn6c")]
+position = Vector2(512, 768)
+scale = Vector2(16, 1)
+collision_mask = 0
+sync_to_physics = true
+
+[node name="Block4" parent="Blocks" index="2" groups=["world_object"] instance=ExtResource("2_sbn6c")]
+position = Vector2(1408, 576)
+scale = Vector2(16, 1)
+collision_mask = 0
+sync_to_physics = true
+
+[node name="Block3" parent="Blocks" index="3" groups=["world_object"] instance=ExtResource("2_sbn6c")]
+position = Vector2(1024, -704)
+scale = Vector2(8, 1)
+collision_mask = 0
+sync_to_physics = true
+
+[node name="Block2" parent="Blocks" index="4" groups=["world_object"] instance=ExtResource("2_sbn6c")]
+position = Vector2(1248, 448)
+scale = Vector2(1, 16)
+collision_mask = 0
+sync_to_physics = true
+
+[node name="Block" parent="Blocks" index="5" groups=["world_object"] instance=ExtResource("2_sbn6c")]
+position = Vector2(1440, 384)
+scale = Vector2(1, 18)
+collision_mask = 0
+sync_to_physics = true
+
+[node name="Block7" parent="Blocks" index="6" groups=["world_object"] instance=ExtResource("2_sbn6c")]
+position = Vector2(64, -1024)
+scale = Vector2(2, 1)
+collision_mask = 0
+sync_to_physics = true
+
+[node name="Block8" parent="Blocks" index="7" groups=["world_object"] instance=ExtResource("2_sbn6c")]
+position = Vector2(64, -1024)
+scale = Vector2(2, 1)
+collision_mask = 0
+sync_to_physics = true
+
+[node name="Block9" parent="Blocks" index="8" groups=["world_object"] instance=ExtResource("2_sbn6c")]
+position = Vector2(256, -1408)
+scale = Vector2(4, 1)
+collision_mask = 0
+sync_to_physics = true
