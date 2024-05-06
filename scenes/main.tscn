@@ -12,10 +12,9 @@ script = ExtResource("1_jt2ph")
 [node name="HUD" parent="." node_paths=PackedStringArray("GameTimeLabel") instance=ExtResource("5_mpuar")]
 GameTimeLabel = NodePath("Control/MarginContainer/GameTimeLabel")
 
-[node name="GUI" parent="." node_paths=PackedStringArray("GameOverContainer", "LevelCompletedContainer", "GameTimeLabel") instance=ExtResource("2_js21w")]
+[node name="GUI" parent="." node_paths=PackedStringArray("GameOverContainer", "LevelCompletedContainer") instance=ExtResource("2_js21w")]
 GameOverContainer = NodePath("Control/MarginContainer/Panel/MarginContainer/GameOver")
 LevelCompletedContainer = NodePath("Control/MarginContainer/Panel/MarginContainer/LevelCompleted")
-GameTimeLabel = NodePath("Control/MarginContainer/Panel/MarginContainer/LevelCompleted/GameTimeLabel")
 
 [node name="GameTimeCounter" type="Node" parent="."]
 script = ExtResource("4_cjien")
