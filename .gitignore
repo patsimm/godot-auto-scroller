@@ -1,2 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
+
+# mac specific
+.DS_Store

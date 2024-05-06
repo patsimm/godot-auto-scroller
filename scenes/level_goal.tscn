@@ -1,18 +1,61 @@
-[gd_scene load_steps=3 format=3 uid="uid://7o3onuhjopdr"]
+[gd_scene load_steps=9 format=3 uid="uid://7o3onuhjopdr"]
 
 [ext_resource type="Script" path="res://src/LevelGoal.cs" id="1_jvjcr"]
+[ext_resource type="Texture2D" path="res://sprites/coin.png" id="2_7t2ia"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8tsxk"]
-size = Vector2(40, 40)
+[sub_resource type="AtlasTexture" id="AtlasTexture_18d2h"]
+atlas = ExtResource("2_7t2ia")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmwdy"]
+atlas = ExtResource("2_7t2ia")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvowv"]
+atlas = ExtResource("2_7t2ia")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2rhfn"]
+atlas = ExtResource("2_7t2ia")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_do8t3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18d2h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rmwdy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvowv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2rhfn")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oxaip"]
+radius = 11.0
+height = 36.0
 
 [node name="LevelGoal" type="Area2D"]
+position = Vector2(1, 4)
 script = ExtResource("1_jvjcr")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(19.5, 20)
-shape = SubResource("RectangleShape2D_8tsxk")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2.25, 26.75)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_do8t3")
+animation = &"new_animation"
+autoplay = "new_animation"
+frame_progress = 0.485701
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-color = Color(0.262745, 0.556863, 0.47451, 1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(10, 14)
+shape = SubResource("CapsuleShape2D_oxaip")
