@@ -18,6 +18,10 @@ public partial class Gui : CanvasLayer {
     [Export]
     public required Label GameTimeLabel { get; set; }
 
+    [ExportGroup("LevelCompleted")]
+    [Export]
+    public required Label HighscoreLabel { get; set; }
+
 	public override void _Ready() {
 		GameOverContainer.Hide();
 		LevelCompletedContainer.Hide();
@@ -27,8 +31,9 @@ public partial class Gui : CanvasLayer {
 		GameOverContainer.Show();
 	}
 
-	public void ShowLevelCompleted(double seconds) {
+	public void ShowLevelCompleted(double seconds, double highscoreSeconds) {
         GameTimeLabel.Text = GameTimeFormat.FormatGameTime(seconds);
+        HighscoreLabel.Text = GameTimeFormat.FormatGameTime(highscoreSeconds);
 		LevelCompletedContainer.Show();
 	}
 
