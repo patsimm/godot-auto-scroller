@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cab8uw5lwrsgs"]
 
 [ext_resource type="PackedScene" uid="uid://dqyuomn8k3oa4" path="res://scenes/levels/base_level.tscn" id="1_a0v4w"]
-[ext_resource type="PackedScene" uid="uid://bcvgrm1j7cljg" path="res://scenes/block.tscn" id="2_sbn6c"]
+[ext_resource type="PackedScene" uid="uid://bcvgrm1j7cljg" path="res://scenes/Block.tscn" id="2_sbn6c"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_n4ufr"]
 
@@ -13,6 +13,9 @@
 VelocityComponent = NodePath("../VelocityComponent")
 TargetNode = NodePath("../../Player")
 KeepInArea = NodePath("../Frame")
+
+[node name="LevelGoal" parent="." index="2"]
+position = Vector2(349, -1640)
 
 [node name="WallRight" type="StaticBody2D" parent="." index="3"]
 position = Vector2(1920, 1080)
