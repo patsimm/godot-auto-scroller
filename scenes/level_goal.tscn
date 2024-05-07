@@ -40,8 +40,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oxaip"]
-radius = 11.0
-height = 36.0
+radius = 15.0
+height = 50.0
 
 [node name="LevelGoal" type="Area2D"]
 position = Vector2(1, 4)
@@ -56,6 +56,5 @@ autoplay = "new_animation"
 frame_progress = 0.485701
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(10, 14)
+position = Vector2(0, 26)
 shape = SubResource("CapsuleShape2D_oxaip")
