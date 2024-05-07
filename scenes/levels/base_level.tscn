@@ -1,46 +1,22 @@
-[gd_scene load_steps=12 format=3 uid="uid://dqyuomn8k3oa4"]
+[gd_scene load_steps=10 format=3 uid="uid://dqyuomn8k3oa4"]
 
-[ext_resource type="Script" path="res://src/Game.cs" id="1_8voc7"]
+[ext_resource type="Script" path="res://src/Level.cs" id="1_8voc7"]
 [ext_resource type="PackedScene" uid="uid://k3tdpfdtkk1d" path="res://scenes/player.tscn" id="2_rppvg"]
-[ext_resource type="PackedScene" uid="uid://bmalvvpwditnc" path="res://scenes/world.tscn" id="3_kkydt"]
 [ext_resource type="Script" path="res://src/Camera.cs" id="4_kqxex"]
 [ext_resource type="Script" path="res://src/Floor.cs" id="4_nd5mw"]
 [ext_resource type="Script" path="res://src/FollowNode2DComponent.cs" id="6_8o7bh"]
 [ext_resource type="Script" path="res://src/VelocityComponent.cs" id="6_gd6r0"]
 [ext_resource type="PackedScene" uid="uid://c0uoc0p4g0b0m" path="res://scenes/frame.tscn" id="7_cf2t2"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qp5jk"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ixmvd"]
+[ext_resource type="PackedScene" uid="uid://7o3onuhjopdr" path="res://scenes/level_goal.tscn" id="9_5o1fo"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pqmwf"]
 
-[node name="Game" type="Node2D"]
+[node name="Level" type="Node2D"]
 script = ExtResource("1_8voc7")
 
 [node name="Player" parent="." instance=ExtResource("2_rppvg")]
 position = Vector2(251, 503)
 velocity = Vector2(0, 0)
-
-[node name="World" parent="." instance=ExtResource("3_kkydt")]
-
-[node name="WallRight" type="StaticBody2D" parent="."]
-position = Vector2(1920, 1080)
-collision_layer = 2
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
-rotation = -1.5708
-shape = SubResource("WorldBoundaryShape2D_qp5jk")
-
-[node name="WallLeft" type="StaticBody2D" parent="."]
-position = Vector2(2.08165e-12, 1080)
-collision_layer = 2
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
-rotation = 1.5708
-shape = SubResource("WorldBoundaryShape2D_ixmvd")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -71,5 +47,8 @@ VelocityComponent = NodePath("../VelocityComponent")
 TargetNode = NodePath("../../Player")
 KeepInArea = NodePath("../Frame")
 
-[connection signal="LevelCompleted" from="World" to="." method="OnLevelCompleted"]
+[node name="LevelGoal" parent="." instance=ExtResource("9_5o1fo")]
+position = Vector2(311, -1635)
+
 [connection signal="PlayerHitFloor" from="Camera2D/Floor" to="." method="OnPlayerHitFloor"]
+[connection signal="PlayerReachedGoal" from="LevelGoal" to="." method="OnLevelCompleted"]

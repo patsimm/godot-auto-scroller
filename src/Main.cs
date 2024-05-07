@@ -3,13 +3,10 @@ using Godot;
 namespace Platformer;
 
 public partial class Main : Node2D {
-	private PackedScene _gameScene = GD.Load<PackedScene>("res://scenes/game.tscn");
-
 	public required Gui Gui { get; set; }
     public required Hud Hud { get; set; }
+    public required LevelLoaderComponent LevelLoaderComponent { get; set; }
     public required TimeCounter GameTimeCounter { get; set; }
-
-	private Game? _game;
 
 	public override void _Ready() {
 		Gui = GetNode<Gui>("GUI");
@@ -19,27 +16,23 @@ public partial class Main : Node2D {
 
         GameTimeCounter = GetNode<TimeCounter>("GameTimeCounter");
 
+        LevelLoaderComponent = GetNode<LevelLoaderComponent>("LevelLoaderComponent");
 		StartGame();
 	}
 
 	public void StartGame() {
         GameTimeCounter.Reset();
 		Gui.Hide();
-		_game = (Game)_gameScene.Instantiate();
-		_game.GameOver += OnGameOver;
-		_game.LevelCompleted += OnLevelCompleted;
-		AddChild(_game);
-		_game.NewGame();
+        LevelLoaderComponent.LoadLevel(1);
 	}
 
-    public void Restart() {
-        _game?.QueueFree();
+	public void Restart() {
 		StartGame();
 		GetTree().Paused = false;
 	}
 
-    public void OnGameOver() {
-        GetTree().Paused = true;
+	public void OnLevelFailed() {
+		GetTree().Paused = true;
         Gui.ShowGameOver();
         Gui.Show();
     }
