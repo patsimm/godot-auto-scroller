@@ -4,8 +4,6 @@ using Godot;
 namespace Platformer;
 
 public partial class Main : Node2D {
-	private PackedScene _gameScene = GD.Load<PackedScene>("res://scenes/game.tscn");
-
     private sealed record Savegame(double? Highscore);
 
 	public required Gui Gui { get; set; }
