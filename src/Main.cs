@@ -71,7 +71,6 @@ public partial class Main : Node2D {
 
         using var saveGame = FileAccess.Open("user://savegame.save", FileAccess.ModeFlags.Read);
         var data = JsonSerializer.Deserialize<Savegame>(saveGame.GetLine());
-        GD.Print(data);
         _highscore = data?.Highscore;
     }
 }
