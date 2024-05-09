@@ -6,13 +6,13 @@ namespace Platformer;
 [Tool]
 [GlobalClass]
 public partial class VelocityComponent : Component<Node2D> {
-    [Export]
-    private float _maxSpeed = 850;
+	[Export]
+	private float _maxSpeed = 850;
 
-    [Export]
+	[Export]
 	private Vector2 _initialVelocity = Vector2.Zero;
 
-    public Vector2 Velocity { get; private set; } = Vector2.Zero;
+	public Vector2 Velocity { get; private set; } = Vector2.Zero;
 
 	public override void _Ready() {
 		base._Ready();
@@ -20,38 +20,42 @@ public partial class VelocityComponent : Component<Node2D> {
 		Velocity = _initialVelocity.LimitLength(_maxSpeed);
 	}
 
-    public void LimitVerticalSpeed(float verticalSpeedLimit) {
-        if (Velocity.Y <= verticalSpeedLimit) return;
-        var verticalSpeed = Mathf.Min(verticalSpeedLimit, Velocity.Y);
-        Velocity = new Vector2(Velocity.X, verticalSpeed);
-    }
+	public void LimitVerticalSpeed(float verticalSpeedLimit) {
+		if (Velocity.Y <= verticalSpeedLimit) return;
+		var verticalSpeed = Mathf.Min(verticalSpeedLimit, Velocity.Y);
+		Velocity = new Vector2(Velocity.X, verticalSpeed);
+	}
+
+	public void ResetYVelocity() {
+		Velocity = new Vector2(Velocity.X, 0);
+	}
 
 	public void AddForce(Vector2 force) {
-        Velocity = (Velocity + force).LimitLength(_maxSpeed);
-    }
+		Velocity = (Velocity + force).LimitLength(_maxSpeed);
+	}
 
-    public void AccelerateToTargetSpeed(Vector2 targetVelocity, float acceleration, double delta) {
-        var velocityDelta = targetVelocity - Velocity;
+	public void AccelerateToTargetSpeed(Vector2 targetVelocity, float acceleration, double delta) {
+		var velocityDelta = targetVelocity - Velocity;
 
-        if (velocityDelta == Vector2.Zero)
-            return;
+		if (velocityDelta == Vector2.Zero)
+			return;
 
-        var force = velocityDelta.Normalized() * acceleration * (float)delta;
-        force = force.LimitLength(velocityDelta.Length());
+		var force = velocityDelta.Normalized() * acceleration * (float)delta;
+		force = force.LimitLength(velocityDelta.Length());
 
-        AddForce(force);
-    }
+		AddForce(force);
+	}
 
-    public void Decelerate(float acceleration, double delta) {
-        if (_initialVelocity == Velocity) return;
-        AccelerateToTargetSpeed(_initialVelocity, acceleration, delta);
-    }
+	public void Decelerate(float acceleration, double delta) {
+		if (_initialVelocity == Velocity) return;
+		AccelerateToTargetSpeed(_initialVelocity, acceleration, delta);
+	}
 
 	public bool IsFalling() {
 		return Velocity.Y > 0;
 	}
 
-    private void ApplyVelocityAndSlide(CharacterBody2D characterBody2D) {
+	private void ApplyVelocityAndSlide(CharacterBody2D characterBody2D) {
 		if (characterBody2D is null)
 			throw new ArgumentNullException(nameof(characterBody2D));
 
@@ -60,7 +64,7 @@ public partial class VelocityComponent : Component<Node2D> {
 		Velocity = characterBody2D.Velocity;
 	}
 
-    private void ApplyVelocityAndCollide(PhysicsBody2D rigidBody2D) {
+	private void ApplyVelocityAndCollide(PhysicsBody2D rigidBody2D) {
 		if (rigidBody2D is null)
 			throw new ArgumentNullException(nameof(rigidBody2D));
 
@@ -69,7 +73,7 @@ public partial class VelocityComponent : Component<Node2D> {
 		if (collision is not null) Velocity = Vector2.Zero;
 	}
 
-    private void ApplyVelocity(Node2D node2D) {
+	private void ApplyVelocity(Node2D node2D) {
 		if (node2D is null)
 			throw new ArgumentNullException(nameof(node2D));
 
@@ -78,7 +82,7 @@ public partial class VelocityComponent : Component<Node2D> {
 	}
 
 	public override void _PhysicsProcess(double delta) {
-        if (Engine.IsEditorHint()) return;
+		if (Engine.IsEditorHint()) return;
 
 		switch (Entity) {
 			case CharacterBody2D characterBody2D:
