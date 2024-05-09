@@ -40,7 +40,7 @@ public partial class MovementComponent : Component<CharacterBody2D> {
                 (_reduceMovementSpeedTimer.WaitTime - _reduceMovementSpeedTimer.TimeLeft), 2)
             : 1;
 
-        var acceleration = Entity.IsOnFloor() ? _movementAcceleration : _movementAcceleration / 3;
+        var acceleration = Entity.IsOnFloor() ? _movementAcceleration : _movementAcceleration / 2;
 
         var targetSpeedX = Direction.X * _movementMaxSpeed * (float)maxSpeedFactor;
         var targetSpeed = new Vector2(targetSpeedX, VelocityComponent.Velocity.Y);
