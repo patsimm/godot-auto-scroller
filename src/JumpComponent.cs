@@ -64,7 +64,8 @@ public partial class JumpComponent : Component<CharacterBody2D> {
         if (Entity.IsOnWallOnly() && _wallJumpCoolDownDurationTimer.TimeLeft <= 0) {
             _jumpDurationTimer.Start();
             _wallJumpCoolDownDurationTimer.Start();
-            MovementComponent.ReduceMovementSpeed(.2);
+            MovementComponent.ReduceMovementSpeed(.1);
+            VelocityComponent.ResetVerticalVelocity();
             var jumpDirection = (Vector2.Up + Entity.GetWallNormal()).Normalized();
             VelocityComponent.AddForce(jumpDirection * _jumpAcceleration * 0.4f);
         }

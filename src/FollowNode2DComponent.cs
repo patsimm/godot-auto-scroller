@@ -26,6 +26,6 @@ public partial class FollowNode2DComponent : Component<Node2D> {
         var distance = KeepInArea.DistanceToBody(TargetNode);
         var acceleration = Mathf.Min(Mathf.Abs(distance.LengthSquared()), 2000);
 
-        VelocityComponent.AccelerateToTargetSpeed(900 * normal, acceleration, delta);
+        VelocityComponent.AccelerateToTargetVelocity(900 * normal, acceleration, delta);
     }
 }

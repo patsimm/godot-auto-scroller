@@ -35,12 +35,6 @@ public partial class MassComponent : Component<CharacterBody2D> {
 		var gravity = VelocityComponent.IsFalling() ? _gravity * 2 : _gravity;
 
 		VelocityComponent.AddForce(Vector2.Down * _mass * gravity * (float)delta);
-
-		if (Entity.IsOnWall()) {
-			VelocityComponent.LimitVerticalSpeed(500f);
-		}
-		else {
-			VelocityComponent.LimitVerticalSpeed(900f);
-		}
-	}
+        VelocityComponent.LimitDownwardVelocity(Entity.IsOnWall() ? 500f : 900f);
+    }
 }
