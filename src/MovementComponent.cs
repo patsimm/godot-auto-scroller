@@ -47,7 +47,7 @@ public partial class MovementComponent : Component<CharacterBody2D> {
 
         acceleration = targetSpeed == Vector2.Zero ? acceleration * 2 : acceleration;
 
-        VelocityComponent.AccelerateToTargetSpeed(targetSpeed, acceleration, delta);
+        VelocityComponent.AccelerateToTargetVelocity(targetSpeed, acceleration, delta);
     }
 
     public override void _PhysicsProcess(double delta) {

@@ -20,13 +20,13 @@ public partial class VelocityComponent : Component<Node2D> {
 		Velocity = _initialVelocity.LimitLength(_maxSpeed);
 	}
 
-	public void LimitVerticalSpeed(float verticalSpeedLimit) {
-		if (Velocity.Y <= verticalSpeedLimit) return;
-		var verticalSpeed = Mathf.Min(verticalSpeedLimit, Velocity.Y);
-		Velocity = new Vector2(Velocity.X, verticalSpeed);
+	public void LimitDownwardVelocity(float maxDownwardVelocity) {
+        if (maxDownwardVelocity <= 0) throw new ArgumentException($"{maxDownwardVelocity} must be positive.");
+		var verticalVelocity = Mathf.Min(maxDownwardVelocity, Velocity.Y);
+		Velocity = new Vector2(Velocity.X, verticalVelocity);
 	}
 
-	public void ResetYVelocity() {
+	public void ResetVerticalVelocity() {
 		Velocity = new Vector2(Velocity.X, 0);
 	}
 
@@ -34,7 +34,7 @@ public partial class VelocityComponent : Component<Node2D> {
 		Velocity = (Velocity + force).LimitLength(_maxSpeed);
 	}
 
-	public void AccelerateToTargetSpeed(Vector2 targetVelocity, float acceleration, double delta) {
+	public void AccelerateToTargetVelocity(Vector2 targetVelocity, float acceleration, double delta) {
 		var velocityDelta = targetVelocity - Velocity;
 
 		if (velocityDelta == Vector2.Zero)
@@ -48,7 +48,7 @@ public partial class VelocityComponent : Component<Node2D> {
 
 	public void Decelerate(float acceleration, double delta) {
 		if (_initialVelocity == Velocity) return;
-		AccelerateToTargetSpeed(_initialVelocity, acceleration, delta);
+		AccelerateToTargetVelocity(_initialVelocity, acceleration, delta);
 	}
 
 	public bool IsFalling() {
