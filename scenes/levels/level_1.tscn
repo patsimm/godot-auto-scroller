@@ -1,11 +1,43 @@
-[gd_scene load_steps=5 format=3 uid="uid://cab8uw5lwrsgs"]
+[gd_scene load_steps=7 format=3 uid="uid://cab8uw5lwrsgs"]
 
 [ext_resource type="PackedScene" uid="uid://dqyuomn8k3oa4" path="res://scenes/levels/base_level.tscn" id="1_a0v4w"]
-[ext_resource type="PackedScene" uid="uid://bcvgrm1j7cljg" path="res://scenes/block.tscn" id="2_sbn6c"]
+[ext_resource type="Texture2D" uid="uid://do1scdrhu46rn" path="res://sprites/castle.png" id="3_uhloh"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_n4ufr"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_x8uav"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yrvlm"]
+texture = ExtResource("3_uhloh")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:2/size_in_atlas = Vector2i(2, 2)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/size_in_atlas = Vector2i(2, 2)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+4:0/size_in_atlas = Vector2i(2, 2)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+6:0/size_in_atlas = Vector2i(2, 2)
+6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:2/size_in_atlas = Vector2i(2, 2)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+4:2/size_in_atlas = Vector2i(2, 2)
+4:2/0 = 0
+4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+6:2/size_in_atlas = Vector2i(2, 2)
+6:2/0 = 0
+6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_bwaa1"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_yrvlm")
 
 [node name="BaseLevel" instance=ExtResource("1_a0v4w")]
 
@@ -35,58 +67,12 @@ metadata/_edit_group_ = true
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_x8uav")
 
-[node name="Blocks" type="Node2D" parent="." index="5"]
-
-[node name="Block6" parent="Blocks" index="0" groups=["world_object"] instance=ExtResource("2_sbn6c")]
-position = Vector2(448, -832)
-scale = Vector2(2, 1)
-collision_mask = 0
-sync_to_physics = true
-
-[node name="Block5" parent="Blocks" index="1" groups=["world_object"] instance=ExtResource("2_sbn6c")]
-position = Vector2(512, 768)
-scale = Vector2(16, 1)
-collision_mask = 0
-sync_to_physics = true
-
-[node name="Block4" parent="Blocks" index="2" groups=["world_object"] instance=ExtResource("2_sbn6c")]
-position = Vector2(1408, 576)
-scale = Vector2(16, 1)
-collision_mask = 0
-sync_to_physics = true
-
-[node name="Block3" parent="Blocks" index="3" groups=["world_object"] instance=ExtResource("2_sbn6c")]
-position = Vector2(1024, -704)
-scale = Vector2(8, 1)
-collision_mask = 0
-sync_to_physics = true
-
-[node name="Block2" parent="Blocks" index="4" groups=["world_object"] instance=ExtResource("2_sbn6c")]
-position = Vector2(1248, 448)
-scale = Vector2(1, 16)
-collision_mask = 0
-sync_to_physics = true
-
-[node name="Block" parent="Blocks" index="5" groups=["world_object"] instance=ExtResource("2_sbn6c")]
-position = Vector2(1440, 384)
-scale = Vector2(1, 18)
-collision_mask = 0
-sync_to_physics = true
-
-[node name="Block7" parent="Blocks" index="6" groups=["world_object"] instance=ExtResource("2_sbn6c")]
-position = Vector2(64, -1024)
-scale = Vector2(2, 1)
-collision_mask = 0
-sync_to_physics = true
-
-[node name="Block8" parent="Blocks" index="7" groups=["world_object"] instance=ExtResource("2_sbn6c")]
-position = Vector2(64, -1024)
-scale = Vector2(2, 1)
-collision_mask = 0
-sync_to_physics = true
-
-[node name="Block9" parent="Blocks" index="8" groups=["world_object"] instance=ExtResource("2_sbn6c")]
-position = Vector2(256, -1408)
-scale = Vector2(4, 1)
-collision_mask = 0
-sync_to_physics = true
+[node name="TileMap" type="TileMap" parent="." index="5"]
+scale = Vector2(2, 2)
+tile_set = SubResource("TileSet_bwaa1")
+format = 2
+layer_0/name = "Ground"
+layer_0/z_index = 1
+layer_0/tile_data = PackedInt32Array(327699, 131073, 0, 262163, 131073, 0, 196627, 131073, 0, 131091, 131073, 0, 65555, 131073, 0, 19, 131073, 0, -65517, 131073, 0, -131053, 131073, 0, 393235, 393217, 0, 262166, 131073, 0, 196630, 131073, 0, 131094, 131073, 0, 65558, 131073, 0, 22, 131073, 0, 327702, 393217, 0, 524303, 262145, 2, 524304, 262145, 2, 524305, 262145, 2, 524306, 262145, 2, 524307, 262145, 2, 524308, 262145, 2, 524309, 262145, 2, 524310, 262145, 2, 524311, 262145, 2, 524312, 262145, 2, 524313, 262145, 2, 524314, 262145, 2, 524315, 262145, 2, 524316, 262145, 2, 524302, 131073, 2, 524317, 393217, 2, 720910, 262145, 2, 720909, 262145, 2, 720908, 262145, 2, 720907, 262145, 2, 720906, 262145, 2, 720905, 262145, 2, 720904, 262145, 2, 720903, 262145, 2, 720902, 262145, 2, 720901, 262145, 2, 720900, 262145, 2, 720899, 262145, 2, 720898, 262145, 2, 720897, 262145, 2, 720896, 131073, 2, 720911, 393217, 2, -786414, 262145, 2, -786415, 262145, 2, -786416, 262145, 2, -786417, 262145, 2, -786418, 262145, 2, -786419, 262145, 2, -786420, 131073, 2, -786413, 393217, 2, -917498, 131073, 2, -917497, 393217, 2, -1114111, 393217, 2, -1441789, 131073, 2, -1441788, 262145, 2, -1441787, 262145, 2, -1441786, 393217, 2, -1114110, 262145, 2, -1310720, 262145, 0, -1245184, 393217, 0, -196589, 262145, 0, -65514, 262145, 0, -196585, 131073, 2, -196584, 262145, 2, -196583, 262145, 2, -196582, 262145, 2, -196581, 393217, 2, -393188, 131073, 2, -393187, 262145, 2, -393186, 262145, 2, -393185, 393217, 2, -589799, 393217, 2, -589800, 262145, 2, -589801, 262145, 2, -589802, 262145, 2, -589803, 262145, 2, -589804, 131073, 2)
+layer_1/name = "Background"
+layer_1/z_index = -1
