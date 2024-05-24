@@ -13,10 +13,13 @@ public partial class LevelLoaderComponent : Component<Node> {
 
     private Level? _currentLevel;
 
+    public int? LoadedLevel { get; private set; }
+
     private void UnloadLevel() {
         if (_currentLevel == null || !IsInstanceIdValid(_currentLevel.GetInstanceId())) return;
         _currentLevel.QueueFree();
         _currentLevel = null;
+        LoadedLevel = null;
     }
 
     public void LoadLevel(int levelNumber) {
@@ -30,6 +33,7 @@ public partial class LevelLoaderComponent : Component<Node> {
 
         _currentLevel = level;
         Entity.AddChild(_currentLevel);
+        LoadedLevel = levelNumber;
         _currentLevel.LevelCompleted += () => EmitSignal(SignalName.LevelCompleted);
         _currentLevel.LevelFailed += () => EmitSignal(SignalName.LevelFailed);
     }

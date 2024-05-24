@@ -1,17 +1,19 @@
+using System;
 using System.Text.Json;
 using Godot;
+using Godot.Collections;
 
 namespace Platformer;
 
 public partial class Main : Node2D {
-    private sealed record Savegame(double? Highscore);
+    private sealed record Savegame(Dictionary<int, double> LevelHighScores);
 
 	public required Gui Gui { get; set; }
     public required Hud Hud { get; set; }
     public required LevelLoaderComponent LevelLoaderComponent { get; set; }
     public required TimeCounter GameTimeCounter { get; set; }
 
-    private double? _highscore;
+    private Dictionary<int, double> _levelHighScores = new();
 
     public override void _EnterTree() {
         base._EnterTree();
@@ -50,17 +52,19 @@ public partial class Main : Node2D {
 	public void OnLevelCompleted() {
 		GetTree().Paused = true;
         var score = GameTimeCounter.ElapsedTimeSeconds;
-        if (_highscore is null || score < _highscore) {
-            _highscore = score;
+        var level = LevelLoaderComponent.LoadedLevel;
+        if (!level.HasValue) throw new Exception($"Unable to execute {nameof(OnLevelCompleted)} if no level is loaded.");
+        if (!_levelHighScores.TryGetValue(level.Value, out var currentHighScore) || score < currentHighScore) {
+            _levelHighScores[level.Value] = score;
             Save();
         }
-		Gui.ShowLevelCompleted(score, _highscore ?? score);
+		Gui.ShowLevelCompleted(score, _levelHighScores[level.Value]);
         Gui.Show();
 	}
 
     private void Save() {
         using var saveGame = FileAccess.Open("user://savegame.save", FileAccess.ModeFlags.Write);
-        var data = JsonSerializer.Serialize(new Savegame(_highscore));
+        var data = JsonSerializer.Serialize(new Savegame(_levelHighScores));
         saveGame.StoreLine(data);
     }
 
@@ -69,6 +73,6 @@ public partial class Main : Node2D {
 
         using var saveGame = FileAccess.Open("user://savegame.save", FileAccess.ModeFlags.Read);
         var data = JsonSerializer.Deserialize<Savegame>(saveGame.GetLine());
-        _highscore = data?.Highscore;
+        _levelHighScores = data?.LevelHighScores ?? new Dictionary<int, double>();
     }
 }
