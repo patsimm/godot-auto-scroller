@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dqyuomn8k3oa4"]
+[gd_scene load_steps=11 format=3 uid="uid://dqyuomn8k3oa4"]
 
 [ext_resource type="Script" path="res://src/Level.cs" id="1_8voc7"]
 [ext_resource type="PackedScene" uid="uid://k3tdpfdtkk1d" path="res://scenes/player.tscn" id="2_rppvg"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://src/VelocityComponent.cs" id="6_gd6r0"]
 [ext_resource type="PackedScene" uid="uid://c0uoc0p4g0b0m" path="res://scenes/frame.tscn" id="7_cf2t2"]
 [ext_resource type="PackedScene" uid="uid://7o3onuhjopdr" path="res://scenes/level_goal.tscn" id="9_5o1fo"]
+[ext_resource type="TileSet" uid="uid://cjlfjl3wrof71" path="res://resources/castle_tileset.tres" id="9_lb1mv"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pqmwf"]
 
@@ -49,6 +50,16 @@ KeepInArea = NodePath("../Frame")
 
 [node name="LevelGoal" parent="." instance=ExtResource("9_5o1fo")]
 position = Vector2(311, -1635)
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2(2, 2)
+tile_set = ExtResource("9_lb1mv")
+format = 2
+layer_0/name = "Ground"
+layer_0/z_index = 1
+layer_0/tile_data = PackedInt32Array(327699, 131073, 0, 262163, 131073, 0, 196627, 131073, 0, 131091, 131073, 0, 65555, 131073, 0, 19, 131073, 0, -65517, 131073, 0, 393235, 393217, 0, 262166, 131073, 0, 196630, 131073, 0, 131094, 131073, 0, 65558, 131073, 0, 22, 131073, 0, 327702, 393217, 0, 524303, 262145, 2, 524304, 262145, 2, 524305, 262145, 2, 524306, 262145, 2, 524307, 262145, 2, 524308, 262145, 2, 524309, 262145, 2, 524310, 262145, 2, 524311, 262145, 2, 524312, 262145, 2, 524313, 262145, 2, 524314, 262145, 2, 524315, 262145, 2, 524316, 262145, 2, 524302, 131073, 2, 524317, 393217, 2, -786414, 262145, 2, -786415, 262145, 2, -786416, 262145, 2, -786417, 262145, 2, -786418, 262145, 2, -786419, 262145, 2, -786420, 131073, 2, -786413, 393217, 2, -917498, 131073, 2, -917497, 393217, 2, -1114111, 393217, 2, -1441789, 131073, 2, -1441788, 262145, 2, -1441787, 262145, 2, -1441786, 393217, 2, -1114110, 262145, 2, -1310720, 262145, 0, -1245184, 393217, 0, -65514, 262145, 0, -196585, 131073, 2, -196584, 262145, 2, -196583, 262145, 2, -196582, 262145, 2, -196581, 393217, 2, -393188, 131073, 2, -393187, 262145, 2, -393186, 262145, 2, -393185, 393217, 2, -589799, 393217, 2, -589800, 262145, 2, -589801, 262145, 2, -589802, 262145, 2, -589803, 262145, 2, -589804, 131073, 2)
+layer_1/name = "Background"
+layer_1/z_index = -1
 
 [connection signal="PlayerHitFloor" from="Camera2D/Floor" to="." method="OnPlayerHitFloor"]
 [connection signal="PlayerReachedGoal" from="LevelGoal" to="." method="OnLevelCompleted"]
