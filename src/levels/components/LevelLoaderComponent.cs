@@ -24,7 +24,7 @@ public partial class LevelLoaderComponent : Component<Node> {
 
     public void LoadLevel(int levelNumber) {
         UnloadLevel();
-        var levelScene = GD.Load<PackedScene>($"res://scenes/levels/level_{levelNumber}.tscn");
+        var levelScene = GD.Load<PackedScene>($"res://src/levels/scenes/level_{levelNumber}.tscn");
         var instantiatedLevel = levelScene.Instantiate();
         if (instantiatedLevel is not Level level) {
             instantiatedLevel.QueueFree();

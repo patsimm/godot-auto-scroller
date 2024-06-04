@@ -7,7 +7,7 @@ public partial class TimeCounter : Node {
     public double ElapsedTimeSeconds { get; private set; }
 
     [Signal]
-    public delegate void GameTimeChangedEventHandler(double seconds);
+    public delegate void TimeChangedEventHandler(double seconds);
 
     public void Reset() {
         _startTime = Time.GetUnixTimeFromSystem();
@@ -22,6 +22,6 @@ public partial class TimeCounter : Node {
         base._Process(delta);
 
         ElapsedTimeSeconds = Time.GetUnixTimeFromSystem() - _startTime;
-        EmitSignal(SignalName.GameTimeChanged, ElapsedTimeSeconds);
+        EmitSignal(SignalName.TimeChanged, ElapsedTimeSeconds);
     }
 }
