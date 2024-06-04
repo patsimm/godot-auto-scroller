@@ -11,6 +11,11 @@ public partial class Player : CharacterBody2D {
 	public override void _Ready() {
 		MovementComponent = GetNode<MovementComponent>("MovementComponent");
 		JumpComponent = GetNode<JumpComponent>("JumpComponent");
+
+        if (Input.IsActionPressed("left"))
+            MovementComponent.Direction += Vector2.Left;
+        if (Input.IsActionPressed("right"))
+            MovementComponent.Direction += Vector2.Right;
 	}
 
 	public override void _Input(InputEvent @event) {
