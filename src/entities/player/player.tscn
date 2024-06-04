@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://k3tdpfdtkk1d"]
 
-[ext_resource type="Script" path="res://src/Player.cs" id="1_mdlgb"]
-[ext_resource type="Script" path="res://src/MassComponent.cs" id="2_w4ydv"]
-[ext_resource type="Script" path="res://src/VelocityComponent.cs" id="3_pl70j"]
-[ext_resource type="Script" path="res://src/MovementComponent.cs" id="4_cbaak"]
-[ext_resource type="Script" path="res://src/JumpComponent.cs" id="5_x4c7e"]
-[ext_resource type="Script" path="res://src/CoyoteTimeComponent.cs" id="6_j3swd"]
+[ext_resource type="Script" path="res://src/entities/player/Player.cs" id="1_mdlgb"]
+[ext_resource type="Script" path="res://src/entities/components/MassComponent.cs" id="2_w4ydv"]
+[ext_resource type="Script" path="res://src/entities/components/VelocityComponent.cs" id="3_pl70j"]
+[ext_resource type="Script" path="res://src/entities/components/MovementComponent.cs" id="4_cbaak"]
+[ext_resource type="Script" path="res://src/entities/components/JumpComponent.cs" id="5_x4c7e"]
+[ext_resource type="Script" path="res://src/entities/components/CoyoteTimeComponent.cs" id="6_j3swd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k5okc"]
 size = Vector2(40, 40)

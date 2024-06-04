@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bhfrsfho1vnlt"]
 
-[ext_resource type="Script" path="res://src/Gui.cs" id="1_w1f33"]
+[ext_resource type="Script" path="res://src/ui/gui/Gui.cs" id="1_w1f33"]
 [ext_resource type="StyleBox" uid="uid://d2jagwrlbxupn" path="res://resources/button_styles_hover.tres" id="2_atad5"]
 [ext_resource type="StyleBox" uid="uid://cvokhb2f7utr1" path="res://resources/button_styles.tres" id="2_ls5wa"]
 

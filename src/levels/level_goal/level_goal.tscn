@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://7o3onuhjopdr"]
 
-[ext_resource type="Script" path="res://src/LevelGoal.cs" id="1_jvjcr"]
+[ext_resource type="Script" path="res://src/levels/level_goal/LevelGoal.cs" id="1_jvjcr"]
 [ext_resource type="Texture2D" uid="uid://cn326gtb5h3na" path="res://sprites/coin.png" id="2_7t2ia"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_18d2h"]
