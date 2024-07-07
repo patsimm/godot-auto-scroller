@@ -8,11 +8,6 @@
 
 [node name="Level" instance=ExtResource("1_a0v4w")]
 
-[node name="FollowNode2DComponent" parent="Camera2D" index="3" node_paths=PackedStringArray("VelocityComponent", "TargetNode", "KeepInArea")]
-VelocityComponent = NodePath("../VelocityComponent")
-TargetNode = NodePath("../../Player")
-KeepInArea = NodePath("../Frame")
-
 [node name="LevelGoal" parent="." index="2"]
 position = Vector2(349, -1640)
 
