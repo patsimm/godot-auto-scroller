@@ -59,5 +59,4 @@ layer_0/tile_data = PackedInt32Array(327699, 131073, 0, 262163, 131073, 0, 19662
 layer_1/name = "Background"
 layer_1/z_index = -1
 
-[connection signal="body_entered" from="Camera2D/Floor" to="." method="OnBodyEnteredFloor"]
 [connection signal="PlayerReachedGoal" from="LevelGoal" to="." method="OnLevelCompleted"]

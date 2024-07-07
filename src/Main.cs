@@ -15,6 +15,8 @@ public partial class Main : Node2D {
 
     private Dictionary<int, double> _levelHighScores = new();
 
+    private int currentLevel;
+
     public override void _EnterTree() {
         base._EnterTree();
         Load();
@@ -23,24 +25,28 @@ public partial class Main : Node2D {
     public override void _Ready() {
         Gui = GetNode<Gui>("GUI");
         Gui.PlayAgainButtonPressed += Restart;
+        Gui.LevelSelected += StartGame;
+        Gui.ShowLevelSelection();
 
         Hud = GetNode<Hud>("HUD");
+        Hud.Hide();
 
         GameTimeCounter = GetNode<TimeCounter>("GameTimeCounter");
 
         LevelLoaderComponent = GetNode<LevelLoaderComponent>("LevelLoaderComponent");
-        StartGame();
     }
 
-    public void StartGame() {
+    public void StartGame(int level) {
+        currentLevel = level;
         GameTimeCounter.Reset();
+        Hud.Show();
         Gui.Hide();
-        LevelLoaderComponent.LoadLevel(1);
+        LevelLoaderComponent.LoadLevel(level);
+        GetTree().Paused = false;
     }
 
     public void Restart() {
-        StartGame();
-        GetTree().Paused = false;
+        StartGame(currentLevel);
     }
 
     public void OnLevelFailed() {

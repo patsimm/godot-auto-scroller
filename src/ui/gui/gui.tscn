@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bhfrsfho1vnlt"]
+[gd_scene load_steps=10 format=3 uid="uid://bhfrsfho1vnlt"]
 
 [ext_resource type="Script" path="res://src/ui/gui/Gui.cs" id="1_w1f33"]
 [ext_resource type="StyleBox" uid="uid://d2jagwrlbxupn" path="res://resources/button_styles_hover.tres" id="2_atad5"]
 [ext_resource type="StyleBox" uid="uid://cvokhb2f7utr1" path="res://resources/button_styles.tres" id="2_ls5wa"]
+[ext_resource type="PackedScene" uid="uid://c1ybwrj6d7hno" path="res://src/ui/gui/level_selection/level_selection.tscn" id="4_trlnq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_r858q"]
 font_size = 60
@@ -21,13 +22,14 @@ keycode = 4194309
 [sub_resource type="Shortcut" id="Shortcut_iyitl"]
 events = [SubResource("InputEventKey_sebjk")]
 
-[node name="GUI" type="CanvasLayer" node_paths=PackedStringArray("GameOverContainer", "LevelCompletedContainer", "GameTimeLabel", "HighscoreLabel")]
+[node name="GUI" type="CanvasLayer" node_paths=PackedStringArray("GameOverContainer", "LevelCompletedContainer", "GameTimeLabel", "HighscoreLabel", "LevelSelectionContainer")]
 process_mode = 3
 script = ExtResource("1_w1f33")
 GameOverContainer = NodePath("Control/MarginContainer/Panel/MarginContainer/GameOver")
 LevelCompletedContainer = NodePath("Control/MarginContainer/Panel/MarginContainer/LevelCompleted")
 GameTimeLabel = NodePath("Control/MarginContainer/Panel/MarginContainer/LevelCompleted/VBoxContainer/GameTimeLabel")
 HighscoreLabel = NodePath("Control/MarginContainer/Panel/MarginContainer/LevelCompleted/VBoxContainer/HBoxContainer/HighscoreLabel")
+LevelSelectionContainer = NodePath("Control/MarginContainer/Panel/MarginContainer/LevelSelection")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -84,6 +86,13 @@ theme_override_styles/normal = ExtResource("2_ls5wa")
 shortcut = SubResource("Shortcut_la6ue")
 text = "Play Again"
 
+[node name="BackToLevelSelection" type="Button" parent="Control/MarginContainer/Panel/MarginContainer/GameOver"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover = ExtResource("2_atad5")
+theme_override_styles/normal = ExtResource("2_ls5wa")
+text = "Level Selection"
+
 [node name="LevelCompleted" type="VBoxContainer" parent="Control/MarginContainer/Panel/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 64
@@ -135,5 +144,19 @@ theme_override_styles/normal = ExtResource("2_ls5wa")
 shortcut = SubResource("Shortcut_iyitl")
 text = "Play Again"
 
+[node name="BackToLevelSelection" type="Button" parent="Control/MarginContainer/Panel/MarginContainer/LevelCompleted"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover = ExtResource("2_atad5")
+theme_override_styles/normal = ExtResource("2_ls5wa")
+text = "Level Selection"
+
+[node name="LevelSelection" parent="Control/MarginContainer/Panel/MarginContainer" instance=ExtResource("4_trlnq")]
+visible = false
+layout_mode = 2
+
 [connection signal="pressed" from="Control/MarginContainer/Panel/MarginContainer/GameOver/PlayAgainButton" to="." method="OnPlayAgainButtonPressed"]
+[connection signal="pressed" from="Control/MarginContainer/Panel/MarginContainer/GameOver/BackToLevelSelection" to="." method="OnLevelSelectionButtonPressed"]
 [connection signal="pressed" from="Control/MarginContainer/Panel/MarginContainer/LevelCompleted/Button" to="." method="OnPlayAgainButtonPressed"]
+[connection signal="pressed" from="Control/MarginContainer/Panel/MarginContainer/LevelCompleted/BackToLevelSelection" to="." method="OnLevelSelectionButtonPressed"]
+[connection signal="LevelSelected" from="Control/MarginContainer/Panel/MarginContainer/LevelSelection" to="." method="OnLevelSelected"]
